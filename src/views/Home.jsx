@@ -58,9 +58,10 @@ const Home = () => {
                 <a
                   id="resume-button-2"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-200 md:py-4 md:text-lg md:px-10"
-                  href="https://drive.google.com/file/d/1WPbJBOMW_tDAAH45yiU1qiiOVS0If6Vo/view?usp=sharing"
+                  href="/Shreya_Patha_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
+                  download="Shreya_Patha_Resume.pdf"
                 >
                   <p>Resume</p>
                 </a>

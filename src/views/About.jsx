@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../themeProvider";
 import { motion } from "framer-motion";
 
-// Replace with local image import once photo is added to src/assets/ShreyaPatha.jpg
-const ShreyaPatha = "https://avatars.githubusercontent.com/u/shreya661?v=4";
+import ShreyaPatha from "../assets/ShreyaPatha.jpg";
 
 const About = () => {
   const theme = useContext(ThemeContext);
