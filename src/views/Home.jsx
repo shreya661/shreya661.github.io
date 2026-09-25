@@ -61,7 +61,6 @@ const Home = () => {
                   href="/Shreya_Patha_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  download="Shreya_Patha_Resume.pdf"
                 >
                   <p>Resume</p>
                 </a>

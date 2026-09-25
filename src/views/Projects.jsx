@@ -18,7 +18,7 @@ const Projects = () => {
           </p>
         </h2>
         <h4 className="mt-8 text-3xl font-semibold text-blue-600">
-          What I Built
+          {/* What I Built */}
         </h4>
         <div className="project-card mt-6 flex justify-between items-stretch flex-wrap">
           <Card />

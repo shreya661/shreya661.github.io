@@ -10,182 +10,397 @@ import launchpadImg from "../assets/projects/launchpad.jpg";
 import researchaiImg from "../assets/projects/researchai.jpg";
 import sentimentImg from "../assets/projects/sentiment.jpg";
 
-const iconMap = {
-  Python: "https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png",
-  FastAPI: "https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png",
-  PostgreSQL: "https://user-images.githubusercontent.com/25181517/117208740-bfb78400-adf5-11eb-97bb-09072b6bedfc.png",
-  PyTorch: "https://user-images.githubusercontent.com/25181517/183381117-498503b4-b4b7-4b80-a15e-56b97b6f9cc0.png",
-  React: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
-  JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-  LangChain: "https://avatars.githubusercontent.com/u/126733545?s=200&v=4",
-  OpenAI: "https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png",
-  GenAI: "https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png",
-  LLMs: "https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png",
-  RAG: "https://avatars.githubusercontent.com/u/126733545?s=200&v=4",
-  NLP: "https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png",
-  "Scikit-Learn": "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
-  Pandas: "https://user-images.githubusercontent.com/25181517/197845597-4a4d4397-df1e-4b54-8e73-15a7d4b05c0a.png",
-  FAISS: "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg",
-  Groq: "https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png",
-  FullStack: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-};
-
-const badgeColors = [
-  "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
-];
-
-const TechBadge = ({ name, index }) => (
-  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeColors[index % badgeColors.length]}`}>
-    {iconMap[name] && (
-      <img
-        style={{ height: "16px", width: "16px", marginRight: "4px", objectFit: "contain" }}
-        className="rounded-sm"
-        src={iconMap[name]}
-        alt={name}
-      />
-    )}
-    {name}
-  </span>
-);
-
-const CardItem = ({ title, description, image, alt, githubUrl, liveUrl, liveLabel = "Live Demo", tech }) => (
-  <motion.div
-    initial={"hidden"}
-    whileInView={"visible"}
-    whileHover={{ y: -10, transition: { duration: 0.3 } }}
-    variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
-    className="max-w-xl w-full md:w-[48%] bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between"
-  >
-    <div>
-      <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+// ─── Card 1: IntervIO ──────────────────────────────────────────────────────────
+export const Card = () => {
+  return (
+    <motion.div
+      initial={"hidden"}
+      whileInView={"visible"}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
+      className="max-w-xl bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300"
+    >
+      <a href="https://github.com/shreya661/IntervIO">
         <ImageWithLoader
-          style={{ height: "260px", width: "100%", objectFit: "cover" }}
+          style={{ height: "300px", width: "100%" }}
           className="rounded-t-lg w-full hover:opacity-90 transition-opacity duration-300"
-          src={image}
-          alt={alt}
+          src={intervioImg}
+          alt="IntervIO AI Interview Platform screenshot"
         />
       </a>
       <div className="p-5">
-        <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/shreya661/IntervIO">
           <h5 className="project-title mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
-            {title}
+            IntervIO — AI Interview Platform
           </h5>
         </a>
         <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
-          {description}
+          An automated AI interview platform that conducts real-time voice/video interviews, evaluates responses with LLMs, and provides structured candidate feedback.
         </p>
-        <div
-          className="project-tech-stack mb-4"
-          style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
-        >
-          {tech.map((t, idx) => (
-            <TechBadge key={t} name={t} index={idx} />
-          ))}
+        <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="Python" />
+            Python
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="FastAPI" />
+            FastAPI
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/117208740-bfb78400-adf5-11eb-97bb-09072b6bedfc.png" alt="PostgreSQL" />
+            PostgreSQL
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png" alt="GenAI" />
+            GenAI
+          </span>
+        </div>
+        <div className="flex gap-3">
+          <a style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            href="https://github.com/shreya661/IntervIO"
+            className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300">
+            Github
+          </a>
         </div>
       </div>
-    </div>
-    <div className="p-5 pt-0 flex gap-3">
-      <a
-        style={{ paddingLeft: "20px", paddingRight: "20px" }}
-        href={githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300"
-      >
-        GitHub
+    </motion.div>
+  );
+};
+
+// ─── Card 2: EduBridge ─────────────────────────────────────────────────────────
+export const Card2 = () => {
+  return (
+    <motion.div
+      initial={"hidden"}
+      whileInView={"visible"}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
+      className="max-w-xl bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300"
+    >
+      <a href="https://github.com/shreya661/EduBridge-AI-Human-Like-School-Assistant">
+        <ImageWithLoader
+          style={{ height: "300px", width: "100%" }}
+          className="rounded-t-lg w-full hover:opacity-90 transition-opacity duration-300"
+          src={edubridgeImg}
+          alt="EduBridge AI School Assistant screenshot"
+        />
       </a>
-      {liveUrl && (
-        <a
-          style={{ paddingLeft: "20px", paddingRight: "20px" }}
-          href={liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="project-deployed-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-500 rounded-lg hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 transition-colors duration-300"
-        >
-          {liveLabel}
+      <div className="p-5">
+        <a href="https://github.com/shreya661/EduBridge-AI-Human-Like-School-Assistant">
+          <h5 className="project-title mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+            EduBridge — AI School Assistant
+          </h5>
         </a>
-      )}
-    </div>
-  </motion.div>
-);
+        <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
+          An AI tutoring platform designed to make academic support conversational, natural, and instantly accessible using LLMs and NLP.
+        </p>
+        <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="Python" />
+            Python
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png" alt="LLMs" />
+            LLMs
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="FastAPI" />
+            FastAPI
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png" alt="GenAI" />
+            GenAI
+          </span>
+        </div>
+        <div className="flex gap-3">
+          <a style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            href="https://github.com/shreya661/EduBridge-AI-Human-Like-School-Assistant"
+            className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300">
+            Github
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
-export const Card = () => (
-  <CardItem
-    title="IntervIO — AI Interview Platform"
-    description="An automated AI interview intelligence platform that conducts real-time video/voice interviews, evaluates responses with LLMs, and provides candidate analytics."
-    image={intervioImg}
-    alt="IntervIO AI Interview Platform screenshot"
-    githubUrl="https://github.com/shreya661/IntervIO"
-    tech={["Python", "FastAPI", "LLMs", "PostgreSQL", "GenAI"]}
-  />
-);
+// ─── Card 3: NAVI 360 ──────────────────────────────────────────────────────────
+export const Card3 = () => {
+  return (
+    <motion.div
+      initial={"hidden"}
+      whileInView={"visible"}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
+      className="max-w-xl bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300"
+    >
+      <a href="https://github.com/shreya661/navi-360">
+        <ImageWithLoader
+          style={{ height: "300px", width: "100%" }}
+          className="rounded-t-lg w-full hover:opacity-90 transition-opacity duration-300"
+          src={navi360Img}
+          alt="NAVI 360 AI Student Platform screenshot"
+        />
+      </a>
+      <div className="p-5">
+        <a href="https://github.com/shreya661/navi-360">
+          <h5 className="project-title mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+            NAVI 360 — AI Student & Career Platform
+          </h5>
+        </a>
+        <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
+          Full-stack student career guidance platform featuring interactive skill roadmaps, AI resume optimization, and personalized career path recommendations.
+        </p>
+        <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+            JavaScript
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="React" />
+            React
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="FastAPI" />
+            FastAPI
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png" alt="GenAI" />
+            GenAI
+          </span>
+        </div>
+        <div className="flex gap-3">
+          <a style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            href="https://github.com/shreya661/navi-360"
+            className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300">
+            Github
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
-export const Card2 = () => (
-  <CardItem
-    title="EduBridge — AI Human-Like School Assistant"
-    description="An AI tutoring and student assistance platform designed to make academic support conversational, natural, and instantly accessible using LLMs and NLP."
-    image={edubridgeImg}
-    alt="EduBridge AI School Assistant screenshot"
-    githubUrl="https://github.com/shreya661/EduBridge-AI-Human-Like-School-Assistant"
-    tech={["Python", "LLMs", "NLP", "FastAPI", "GenAI"]}
-  />
-);
+// ─── Card 4: Journal AI ────────────────────────────────────────────────────────
+export const Card4 = () => {
+  return (
+    <motion.div
+      initial={"hidden"}
+      whileInView={"visible"}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
+      className="max-w-xl bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300"
+    >
+      <a href="https://github.com/shreya661/Journal_AI">
+        <ImageWithLoader
+          style={{ height: "300px", width: "100%" }}
+          className="rounded-t-lg w-full hover:opacity-90 transition-opacity duration-300"
+          src={journalaiImg}
+          alt="Journal AI screenshot"
+        />
+      </a>
+      <div className="p-5">
+        <a href="https://github.com/shreya661/Journal_AI">
+          <h5 className="project-title mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+            AI Journaling App
+          </h5>
+        </a>
+        <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
+          A full-stack journaling application that uses AI to analyze journal entries, detect sentiment, and provide meaningful personalized feedback.
+        </p>
+        <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="Python" />
+            Python
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="FastAPI" />
+            FastAPI
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="React" />
+            React
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/117208740-bfb78400-adf5-11eb-97bb-09072b6bedfc.png" alt="PostgreSQL" />
+            PostgreSQL
+          </span>
+        </div>
+        <div className="flex gap-3">
+          <a style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            href="https://github.com/shreya661/Journal_AI"
+            className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300">
+            Github
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
-export const Card3 = () => (
-  <CardItem
-    title="NAVI 360 — AI Student & Career Platform"
-    description="Full-stack student career guidance platform featuring interactive skill roadmaps, AI resume optimization, and personalized career path recommendations."
-    image={navi360Img}
-    alt="NAVI 360 AI Platform screenshot"
-    githubUrl="https://github.com/shreya661/navi-360"
-    tech={["JavaScript", "React", "Python", "FastAPI", "GenAI"]}
-  />
-);
+// ─── Card 5: LaunchPad ─────────────────────────────────────────────────────────
+export const Card5 = () => {
+  return (
+    <motion.div
+      initial={"hidden"}
+      whileInView={"visible"}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
+      className="max-w-xl bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300"
+    >
+      <a href="https://github.com/shreya661/launchpad">
+        <ImageWithLoader
+          style={{ height: "300px", width: "100%" }}
+          className="rounded-t-lg w-full hover:opacity-90 transition-opacity duration-300"
+          src={launchpadImg}
+          alt="LaunchPad AI Productivity App screenshot"
+        />
+      </a>
+      <div className="p-5">
+        <a href="https://github.com/shreya661/launchpad">
+          <h5 className="project-title mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+            LaunchPad — AI Productivity App
+          </h5>
+        </a>
+        <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
+          An AI-powered developer productivity platform with intelligent task decomposition, automated deployment tracking, and sprint velocity analytics.
+        </p>
+        <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="Python" />
+            Python
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png" alt="GenAI" />
+            GenAI
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/192107858-fe19f043-c502-4009-8c47-476fc89718ad.png" alt="FastAPI" />
+            FastAPI
+          </span>
+        </div>
+        <div className="flex gap-3">
+          <a style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            href="https://github.com/shreya661/launchpad"
+            className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300">
+            Github
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
-export const Card4 = () => (
-  <CardItem
-    title="Journal AI — Smart Journaling App"
-    description="Intelligent journaling web application that analyzes daily journal entries, detects emotional patterns, and provides personalized AI reflections and mental health trends."
-    image={journalaiImg}
-    alt="Journal AI screenshot"
-    githubUrl="https://github.com/shreya661/Journal_AI"
-    tech={["Python", "FastAPI", "React", "Groq", "PostgreSQL"]}
-  />
-);
+// ─── Card 6: Research AI ───────────────────────────────────────────────────────
+export const Card6 = () => {
+  return (
+    <motion.div
+      initial={"hidden"}
+      whileInView={"visible"}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
+      className="max-w-xl bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300"
+    >
+      <a href="https://github.com/shreya661/researchai">
+        <ImageWithLoader
+          style={{ height: "300px", width: "100%" }}
+          className="rounded-t-lg w-full hover:opacity-90 transition-opacity duration-300"
+          src={researchaiImg}
+          alt="Research AI screenshot"
+        />
+      </a>
+      <div className="p-5">
+        <a href="https://github.com/shreya661/researchai">
+          <h5 className="project-title mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+            Research AI
+          </h5>
+        </a>
+        <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
+          An AI research assistant that helps users explore, summarize, and synthesize academic papers and documents using RAG and LLMs.
+        </p>
+        <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="Python" />
+            Python
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4" alt="LangChain" />
+            LangChain
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/223639822-2a01e63a-a7f9-4a39-8930-61431541bc06.png" alt="LLMs" />
+            LLMs
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="FAISS" />
+            FAISS
+          </span>
+        </div>
+        <div className="flex gap-3">
+          <a style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            href="https://github.com/shreya661/researchai"
+            className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300">
+            Github
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
-export const Card5 = () => (
-  <CardItem
-    title="LaunchPad — AI Developer Productivity"
-    description="AI developer acceleration platform providing intelligent task decomposition, automated deployment tracking, and sprint velocity analytics."
-    image={launchpadImg}
-    alt="LaunchPad screenshot"
-    githubUrl="https://github.com/shreya661/launchpad"
-    tech={["Python", "FastAPI", "LLMs", "GenAI"]}
-  />
-);
-
-export const Card6 = () => (
-  <CardItem
-    title="Research AI — Academic Paper Synthesis"
-    description="A multi-document RAG research assistant enabling users to query complex research papers, extract key findings, and visualize citation knowledge networks."
-    image={researchaiImg}
-    alt="Research AI screenshot"
-    githubUrl="https://github.com/shreya661/researchai"
-    tech={["Python", "RAG", "LangChain", "LLMs", "FAISS"]}
-  />
-);
-
-export const Card7 = () => (
-  <CardItem
-    title="Social Media Sentiment Analysis"
-    description="Natural language processing sentiment analytics system that classifies tweets and posts into positive, neutral, or negative emotion trends with visual dashboards."
-    image={sentimentImg}
-    alt="Sentiment Analysis screenshot"
-    githubUrl="https://github.com/shreya661/social_media_sentiment_analysis-"
-    tech={["Python", "NLP", "Scikit-Learn", "Pandas"]}
-  />
-);
+// ─── Card 7: Sentiment Analysis ────────────────────────────────────────────────
+export const Card7 = () => {
+  return (
+    <motion.div
+      initial={"hidden"}
+      whileInView={"visible"}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      variants={{ visible: { opacity: 1 }, hidden: { opacity: 0 } }}
+      className="max-w-xl bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700 my-4 hover:shadow-2xl transition-shadow duration-300"
+    >
+      <a href="https://github.com/shreya661/social_media_sentiment_analysis-">
+        <ImageWithLoader
+          style={{ height: "300px", width: "100%" }}
+          className="rounded-t-lg w-full hover:opacity-90 transition-opacity duration-300"
+          src={sentimentImg}
+          alt="Social Media Sentiment Analysis screenshot"
+        />
+      </a>
+      <div className="p-5">
+        <a href="https://github.com/shreya661/social_media_sentiment_analysis-">
+          <h5 className="project-title mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+            Social Media Sentiment Analysis
+          </h5>
+        </a>
+        <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
+          A beginner-friendly social media sentiment analysis project with rich visual insights, classifying posts by sentiment using NLP and ML models.
+        </p>
+        <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="Python" />
+            Python
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="Scikit-Learn" />
+            Scikit-Learn
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" />
+            Pandas
+          </span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+            <img style={{ height: "16px", width: "16px", marginRight: "4px" }} className="rounded-sm" src="https://user-images.githubusercontent.com/25181517/183423507-c056a6f9-1ba8-4312-a350-19bcbc5a8697.png" alt="NLP" />
+            NLP
+          </span>
+        </div>
+        <div className="flex gap-3">
+          <a style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            href="https://github.com/shreya661/social_media_sentiment_analysis-"
+            className="project-github-link inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 transition-colors duration-300">
+            Github
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
