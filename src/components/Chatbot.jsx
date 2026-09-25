@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeContext } from "../themeProvider";
 
-const RESUME_URL = "https://drive.google.com/file/d/1WPbJBOMW_tDAAH45yiU1qiiOVS0If6Vo/view?usp=sharing";
+const RESUME_URL = "https://drive.google.com/file/d/1htVbT1gcmGuBXM89QU6J30J050oHMWmK/view?usp=sharing";
 const EMAIL = "pathashreya@gmail.com";
 const GITHUB_URL = "https://github.com/shreya661";
 const LINKEDIN_URL = "https://www.linkedin.com/in/shreya-patha-jw13/";
