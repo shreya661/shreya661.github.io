@@ -43,7 +43,10 @@ const GitStats = () => {
             </p>
             <img
               id="github-stats-card"
-              src="https://github-readme-stats.vercel.app/api?username=shreya661&show_icons=true&theme=radical"
+              src="https://github-readme-stats-eight-theta.vercel.app/api?username=shreya661&show_icons=true&theme=radical"
+              onError={(e) => {
+                e.target.src = "https://github-readme-stats.vercel.app/api?username=shreya661&show_icons=true&theme=radical";
+              }}
               alt="shreya661-stats"
               className="mt-6"
             />
@@ -52,7 +55,10 @@ const GitStats = () => {
         <div className="flex justify-center mt-8">
           <img
             id="github-top-langs"
-            src="https://github-readme-stats.vercel.app/api/top-langs/?username=shreya661&layout=compact&theme=radical"
+            src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=shreya661&layout=compact&theme=radical"
+            onError={(e) => {
+              e.target.src = "https://github-readme-stats.vercel.app/api/top-langs/?username=shreya661&layout=compact&theme=radical";
+            }}
             alt="shreya661-top-langs"
           />
         </div>
