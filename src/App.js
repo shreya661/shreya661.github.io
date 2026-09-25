@@ -13,6 +13,7 @@ import GitStats from "./views/GitStats";
 import LoadingScreen from "./components/LoadingScreen";
 import { ThemeProvider } from "./themeProvider";
 import BackToTop from "./components/BackToTop";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ function App() {
             <GitStats />
             <Contact />
             <BackToTop />
+            <Chatbot />
           </div>
         ) : (
           <LoadingScreen />
