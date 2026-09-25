@@ -33,7 +33,7 @@ const Home = () => {
                     1500,
                     "AI/ML Engineer",
                     1500,
-                    "RAG Developer",
+                    "Full-Stack AI Developer",
                     1500,
                     "Backend Developer",
                     1500,

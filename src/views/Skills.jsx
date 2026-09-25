@@ -28,7 +28,7 @@ const Skills = () => {
               : "mt-4 text-xl text-justify text-white"
           }
         >
-          As a Generative AI & AIML Developer, I build end-to-end intelligent systems — from LLM-powered backends and RAG pipelines to computer vision models and data analytics dashboards. Here are the key technologies and tools I work with.
+          As a Generative AI & AIML Developer, I build end-to-end intelligent systems — from LLM-powered backends to computer vision models and data analytics dashboards. Here are the key technologies and tools I work with.
         </p>
         <motion.div className="skills-card flex flex-wrap mt-8 flex flex-wrap justify-between">
           {techStack.map((el, index) => (

@@ -316,7 +316,7 @@ export const Card6 = () => {
           </h5>
         </a>
         <p className="project-description mb-3 font-normal text-gray-700 dark:text-gray-400">
-          An AI research assistant that helps users explore, summarize, and synthesize academic papers and documents using RAG and LLMs.
+          An AI research assistant that helps users explore, summarize, and synthesize academic papers and documents using LLMs and NLP.
         </p>
         <div className="project-tech-stack mb-4" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">

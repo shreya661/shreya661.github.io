@@ -64,9 +64,9 @@ const About = () => {
                   : "mt-4 text-xl text-justify text-white"
               }
             >
-              I'm a <strong>Computer Science & Engineering graduate specializing in Artificial Intelligence & Machine Learning</strong>, with hands-on experience building Generative AI applications, RAG systems, LLM pipelines, computer vision models, and backend APIs. I served as an <strong>AIML Team Lead Intern at UpToSkills</strong>, where I led cross-functional intern teams, coordinated AI/ML technical execution, and built <strong>SkillNova</strong> — a production-grade RAG-based chatbot for real-time intern support.
+              I'm a <strong>Computer Science & Engineering graduate specializing in Artificial Intelligence & Machine Learning</strong>, with hands-on experience building Generative AI applications, LLM pipelines, computer vision models, and backend APIs. I served as an <strong>AIML Team Lead Intern at UpToSkills</strong>, where I led cross-functional intern teams, coordinated AI/ML technical execution, and built <strong>SkillNova</strong> — a production-grade AI chatbot for real-time intern support.
               <br /><br />
-              I enjoy turning ideas into working products — from understanding the problem, collecting and processing data, to integrating LLMs, building APIs, and connecting everything into a usable AI-powered application. Currently focused on growing as an <strong>AI Engineer</strong> with deep interest in <strong>LLM applications, Agentic Workflows, RAG architectures, backend development, and practical AI systems</strong>.
+              I enjoy turning ideas into working products — from understanding the problem, collecting and processing data, to integrating LLMs, building APIs, and connecting everything into a usable AI-powered application. Currently focused on growing as an <strong>AI Engineer</strong> with deep interest in <strong>LLM applications, Agentic Workflows, backend development, and practical AI systems</strong>.
             </p>
           </motion.div>
         </div>
