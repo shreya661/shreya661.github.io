@@ -17,7 +17,7 @@ const Experience = () => {
         "Oversaw task management, scheduling, attendance, and submission workflows across multiple AI/ML and analytics intern teams",
         "Coordinated AI/ML technical execution and supported interns in building practical generative AI and machine learning projects",
         "Maintained structured communication channels and ensured alignment on project milestones and quality standards",
-        "Worked on intern performance analysis using structured data and explored RAG-based chatbot workflows"
+        "Worked on intern performance analysis using structured data and automated coaching feedback workflows"
       ]
     },
     {
@@ -25,10 +25,10 @@ const Experience = () => {
       title: "AIML Intern",
       duration: "March 2026 – April 2026",
       location: "Remote",
-      description: "Developed SkillNova, a production-grade RAG-based chatbot for real-time intern support and document-based query handling using LLMs, vector search, and FastAPI.",
+      description: "Developed SkillNova, an AI-powered conversational support platform for real-time intern guidance and query resolution using LLMs, FastAPI, and automated prompt workflows.",
       responsibilities: [
-        "Built SkillNova — a RAG-based chatbot designed for real-time intern Q&A and document-based query resolution",
-        "Implemented LLM API integrations, prompt engineering workflows, and FAISS vector search optimization",
+        "Built SkillNova — an AI support chatbot designed for real-time intern Q&A and technical guidance",
+        "Implemented LLM API integrations, structured prompt engineering workflows, and response optimization",
         "Designed and deployed FastAPI backend with PostgreSQL integration for chatbot session management",
         "Explored and implemented practical LLM pipelines using LangChain and Groq API"
       ]

@@ -15,7 +15,7 @@ const Education = () => {
       highlights: [
         "Specialization in Artificial Intelligence & Machine Learning",
         "Hands-on projects in Generative AI, Computer Vision, NLP, and Backend Development",
-        "Built sign language recognition, RAG chatbots, AI journaling, and full-stack AI platforms"
+        "Built sign language recognition, AI-powered chatbots, AI journaling, and full-stack AI platforms"
       ]
     },
     {
@@ -125,7 +125,7 @@ const Education = () => {
               Continuous Learning
             </h5>
             <p className="text-gray-700 dark:text-gray-300">
-              Committed to staying at the frontier of AI/ML, exploring Advanced RAG, Agentic Workflows, LLM Applications, and MLOps through continuous learning and practical project building.
+              Committed to staying at the frontier of AI/ML, exploring Agentic Workflows, LLM Applications, Computer Vision, and MLOps through continuous learning and practical project building.
             </p>
           </motion.div>
         </div>
