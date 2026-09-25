@@ -60,7 +60,7 @@ const Navbar = () => {
                   className={darkMode
                     ? "block py-2 px-3 text-black hover:bg-blue-500 hover:text-white rounded-md"
                     : "block py-2 px-3 text-white hover:bg-blue-500 hover:text-black rounded-md"}
-                  href="/Shreya_Patha_Resume.pdf"
+                  href="https://drive.google.com/file/d/1WPbJBOMW_tDAAH45yiU1qiiOVS0If6Vo/view?usp=sharing"
                   target="_blank" rel="noopener noreferrer">
                   Resume
                 </a>
@@ -114,7 +114,7 @@ const Navbar = () => {
                   ? "block py-2 px-3 text-black hover:bg-blue-500 hover:text-white rounded-md"
                   : "block py-2 px-3 text-white hover:bg-blue-500 hover:text-black rounded-md"}
                   target="_blank" rel="noopener noreferrer"
-                  href="/Shreya_Patha_Resume.pdf">
+                  href="https://drive.google.com/file/d/1WPbJBOMW_tDAAH45yiU1qiiOVS0If6Vo/view?usp=sharing">
                   Resume
                 </a>
               </li>
