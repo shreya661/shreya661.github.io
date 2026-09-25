@@ -26,17 +26,17 @@ const Home = () => {
               <motion.span className={darkMode ? "block text-black" : " text-white"}>
                 Hi, I am Shreya Patha
               </motion.span>
-              <span className="block text-blue-500 z-0 lg:inline ">
+              <span className="block text-blue-500 z-0 lg:inline min-h-[1.2em]">
                 <Typical
                   steps={[
                     "Generative AI Developer",
-                    500,
+                    1500,
                     "AI/ML Engineer",
-                    500,
+                    1500,
                     "RAG Systems Builder",
-                    500,
+                    1500,
                     "Backend Developer",
-                    500,
+                    1500,
                   ]}
                   loop={Infinity}
                 />
