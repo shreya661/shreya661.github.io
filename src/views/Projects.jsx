@@ -102,9 +102,11 @@ const GitHubIcon = () => (
   </svg>
 );
 
-const ProjectCard = ({ project, darkMode, onLinkClick }) => (
+const ProjectCard = ({ project, darkMode, isGrid, onLinkClick }) => (
   <div
-    className={`flex-shrink-0 w-80 select-none rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl ${
+    className={`${
+      isGrid ? "w-full" : "flex-shrink-0 w-80"
+    } select-none rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between ${
       darkMode
         ? "bg-white border-gray-200 hover:border-blue-400"
         : "bg-gray-800 border-gray-700 hover:border-gray-500"
@@ -115,9 +117,9 @@ const ProjectCard = ({ project, darkMode, onLinkClick }) => (
         : "0 8px 30px rgba(0,0,0,0.4)",
     }}
   >
-    <div className={`h-1.5 w-full bg-gradient-to-r ${project.accent}`} />
-    <div className="p-6 flex flex-col justify-between h-full">
-      <div>
+    <div>
+      <div className={`h-1.5 w-full bg-gradient-to-r ${project.accent}`} />
+      <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <span className="text-3xl">{project.emoji}</span>
           <span
@@ -160,23 +162,23 @@ const ProjectCard = ({ project, darkMode, onLinkClick }) => (
           ))}
         </div>
       </div>
-      <div>
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => {
-            if (onLinkClick && !onLinkClick()) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          }}
-          className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r ${project.accent} hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200`}
-        >
-          <GitHubIcon />
-          View on GitHub
-        </a>
-      </div>
+    </div>
+    <div className="p-6 pt-0">
+      <a
+        href={project.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => {
+          if (onLinkClick && !onLinkClick()) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }}
+        className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r ${project.accent} hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200`}
+      >
+        <GitHubIcon />
+        View on GitHub
+      </a>
     </div>
   </div>
 );
@@ -185,10 +187,12 @@ const Projects = () => {
   const theme = useContext(ThemeContext);
   const darkMode = theme.state.darkMode;
 
+  // View Mode: 'grid' (static, no sliding) or 'slider' (manual navigation)
+  const [viewMode, setViewMode] = useState("grid");
+
   const containerRef = useRef(null);
   const trackRef = useRef(null);
 
-  // Scroll position and target (clamped between 0 and maxScroll, NO infinite loop)
   const scrollPosRef = useRef(0);
   const targetScrollRef = useRef(0);
   const velocityRef = useRef(0);
@@ -205,7 +209,6 @@ const Projects = () => {
   const [atEnd, setAtEnd] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Compute maximum scroll distance
   const getMaxScroll = useCallback(() => {
     const track = trackRef.current;
     const container = containerRef.current;
@@ -213,8 +216,8 @@ const Projects = () => {
     return Math.max(0, track.scrollWidth - container.clientWidth);
   }, []);
 
-  // Continuous animation loop (bounded between 0 and maxScroll)
   const animate = useCallback(() => {
+    if (viewMode !== "slider") return;
     const track = trackRef.current;
     if (!track) {
       rafRef.current = requestAnimationFrame(animate);
@@ -224,18 +227,15 @@ const Projects = () => {
     const maxScroll = getMaxScroll();
 
     if (isDraggingRef.current) {
-      // Direct drag tracking
       scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.45;
     } else {
-      // Apply flick momentum velocity only when user released a drag
       if (Math.abs(velocityRef.current) > 0.05) {
         targetScrollRef.current += velocityRef.current;
-        velocityRef.current *= 0.92; // smooth friction
+        velocityRef.current *= 0.92;
       } else {
         velocityRef.current = 0;
       }
 
-      // Strict boundaries: stops cleanly at left (0) and right (maxScroll) - NO LOOP
       if (targetScrollRef.current < 0) {
         targetScrollRef.current = 0;
         velocityRef.current = 0;
@@ -244,17 +244,14 @@ const Projects = () => {
         velocityRef.current = 0;
       }
 
-      // Smooth continuous lerp towards target position
       scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.15;
     }
 
-    // Hard clamp rendered position
     const clampedPos = Math.max(0, Math.min(maxScroll, scrollPosRef.current));
     scrollPosRef.current = clampedPos;
 
     track.style.transform = `translate3d(-${clampedPos}px, 0, 0)`;
 
-    // Update boundaries and progress index
     setAtStart(clampedPos <= 10);
     setAtEnd(maxScroll > 0 && clampedPos >= maxScroll - 10);
 
@@ -267,14 +264,16 @@ const Projects = () => {
     }
 
     rafRef.current = requestAnimationFrame(animate);
-  }, [getMaxScroll]);
+  }, [getMaxScroll, viewMode]);
 
   useEffect(() => {
-    rafRef.current = requestAnimationFrame(animate);
+    if (viewMode === "slider") {
+      rafRef.current = requestAnimationFrame(animate);
+    }
     return () => cancelAnimationFrame(rafRef.current);
-  }, [animate]);
+  }, [animate, viewMode]);
 
-  // Pointer Down: Start Drag
+  // Pointer Down (for slider mode)
   const handlePointerDown = (e) => {
     isDraggingRef.current = true;
     hasDraggedRef.current = false;
@@ -294,7 +293,6 @@ const Projects = () => {
     }
   };
 
-  // Pointer Move: Only moves when user is actively dragging (NO auto hover slide)
   const handlePointerMove = (e) => {
     const maxScroll = getMaxScroll();
     if (maxScroll <= 0 || !isDraggingRef.current) return;
@@ -309,18 +307,14 @@ const Projects = () => {
       hasDraggedRef.current = true;
     }
 
-    // Dragging left scrolls rightwards, dragging right scrolls leftwards
     const newTarget = dragStartScrollRef.current - totalDelta;
     targetScrollRef.current = Math.max(0, Math.min(maxScroll, newTarget));
-
-    // Calculate instantaneous throw velocity
     velocityRef.current = -(deltaX / timeDelta) * 16;
 
     lastXRef.current = currentX;
     lastTimeRef.current = now;
   };
 
-  // Pointer Up
   const handlePointerUp = (e) => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
@@ -334,7 +328,6 @@ const Projects = () => {
       // Safe fallback
     }
 
-    // Limit maximum throw velocity
     if (velocityRef.current > 20) velocityRef.current = 20;
     if (velocityRef.current < -20) velocityRef.current = -20;
   };
@@ -346,8 +339,8 @@ const Projects = () => {
     }
   };
 
-  // Mouse wheel horizontal scroll support
   const handleWheel = (e) => {
+    if (viewMode !== "slider") return;
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     if (Math.abs(delta) > 1) {
       const maxScroll = getMaxScroll();
@@ -355,9 +348,8 @@ const Projects = () => {
     }
   };
 
-  // Step buttons (one card width)
   const stepLeft = () => {
-    const cardStep = 344; // card width (320px) + gap (24px)
+    const cardStep = 344;
     targetScrollRef.current = Math.max(0, targetScrollRef.current - cardStep);
   };
 
@@ -367,7 +359,6 @@ const Projects = () => {
     targetScrollRef.current = Math.min(maxScroll, targetScrollRef.current + cardStep);
   };
 
-  // Jump directly to specific project by index (0..6)
   const jumpToIndex = (index) => {
     const maxScroll = getMaxScroll();
     if (maxScroll <= 0) return;
@@ -382,14 +373,14 @@ const Projects = () => {
       id="projects"
       className={darkMode ? "bg-white text-black" : "bg-gray-900 text-white"}
     >
-      <div className="pt-16 pb-16 relative overflow-hidden">
+      <div className="pt-16 pb-16 relative">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-8 px-4"
+          className="text-center mb-6 px-4"
         >
           <h2 className="text-5xl font-bold">
             <span className="border-b-4 border-blue-500 p-2 inline-block">Projects</span>
@@ -397,125 +388,159 @@ const Projects = () => {
           <p className={`mt-5 text-base max-w-xl mx-auto ${darkMode ? "text-gray-500" : "text-gray-400"}`}>
             7 AI-powered applications — built end-to-end with Python, LLMs, FastAPI &amp; more.
           </p>
+
+          {/* View Mode Switcher: Grid (Static) vs Slider */}
+          <div className="inline-flex items-center gap-1.5 mt-6 p-1 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-100/70 dark:bg-gray-800/70 backdrop-blur-sm">
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                viewMode === "grid"
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+              }`}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z" />
+              </svg>
+              Grid View (All 7)
+            </button>
+            <button
+              onClick={() => setViewMode("slider")}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                viewMode === "slider"
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+              }`}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 19h12v2H6v-2zm-2-4h16v2H4v-2zm2-8h12v2H6V7zm-2-4h16v2H4V3z" />
+              </svg>
+              Carousel View
+            </button>
+          </div>
         </motion.div>
 
-        {/* Carousel Container */}
-        <div className="relative group max-w-full px-2 sm:px-6">
-          {/* Navigation Arrow Left (Stops cleanly at start) */}
-          <button
-            onClick={stepLeft}
-            disabled={atStart}
-            aria-label="Previous Projects"
-            className={`absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
-              atStart
-                ? "opacity-30 cursor-not-allowed pointer-events-none"
-                : "opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
-            } ${
-              darkMode
-                ? "bg-white/90 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
-                : "bg-gray-800/90 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
-            }`}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
-
-          {/* Navigation Arrow Right (Stops cleanly at end) */}
-          <button
-            onClick={stepRight}
-            disabled={atEnd}
-            aria-label="Next Projects"
-            className={`absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
-              atEnd
-                ? "opacity-30 cursor-not-allowed pointer-events-none"
-                : "opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
-            } ${
-              darkMode
-                ? "bg-white/90 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
-                : "bg-gray-800/90 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
-            }`}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
-
-          {/* Draggable & Cursor Track Container */}
-          <div
-            ref={containerRef}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            onPointerLeave={handlePointerLeave}
-            onWheel={handleWheel}
-            style={{
-              overflow: "hidden",
-              width: "100%",
-              cursor: isGrabbing ? "grabbing" : "grab",
-              paddingTop: "16px",
-              paddingBottom: "24px",
-              touchAction: "pan-y",
-              maskImage: "linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%)",
-            }}
-          >
-            <div
-              ref={trackRef}
-              style={{
-                display: "flex",
-                gap: "24px",
-                width: "max-content",
-                willChange: "transform",
-                userSelect: "none",
-                paddingLeft: "24px",
-                paddingRight: "24px",
-              }}
-            >
-              {/* Exactly 7 project cards: No repeating duplicates */}
+        {/* MODE 1: STATIC GRID VIEW (Zero sliding, clean responsive layout) */}
+        {viewMode === "grid" && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projectData.map((project) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
                   darkMode={darkMode}
-                  onLinkClick={canClickLink}
+                  isGrid={true}
+                  onLinkClick={() => true}
                 />
               ))}
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Project Dots Navigation & Indicator (1 to 7) */}
-        <div className="flex items-center justify-center gap-2 mt-2 mb-4">
-          {projectData.map((project, idx) => (
+        {/* MODE 2: CAROUSEL VIEW (Manual only - NO auto slide) */}
+        {viewMode === "slider" && (
+          <div className="relative group max-w-full px-2 sm:px-6 mt-4">
+            {/* Navigation Arrow Left */}
             <button
-              key={project.id}
-              onClick={() => jumpToIndex(idx)}
-              title={`${project.title} (${idx + 1}/7)`}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                activeIndex === idx
-                  ? "w-8 bg-blue-600 dark:bg-blue-500"
-                  : "w-2.5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
+              onClick={stepLeft}
+              disabled={atStart}
+              aria-label="Previous Projects"
+              className={`absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
+                atStart
+                  ? "opacity-30 cursor-not-allowed pointer-events-none"
+                  : "opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
+              } ${
+                darkMode
+                  ? "bg-white/90 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
+                  : "bg-gray-800/90 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
               }`}
-            />
-          ))}
-        </div>
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
 
-        {/* Interaction Hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className={`flex items-center justify-center gap-3 text-xs ${
-            darkMode ? "text-gray-500" : "text-gray-400"
-          }`}
-        >
-          <span className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-gray-300/40 dark:border-gray-700/60 bg-gray-100/50 dark:bg-gray-800/50">
-            👈 <strong>Drag to slide</strong> or use arrows &amp; dots • 7 Projects (Stops at ends) 👉
-          </span>
-        </motion.div>
+            {/* Navigation Arrow Right */}
+            <button
+              onClick={stepRight}
+              disabled={atEnd}
+              aria-label="Next Projects"
+              className={`absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
+                atEnd
+                  ? "opacity-30 cursor-not-allowed pointer-events-none"
+                  : "opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
+              } ${
+                darkMode
+                  ? "bg-white/90 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
+                  : "bg-gray-800/90 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
+              }`}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+
+            {/* Draggable Track (Manual only) */}
+            <div
+              ref={containerRef}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+              onPointerLeave={handlePointerLeave}
+              onWheel={handleWheel}
+              style={{
+                overflow: "hidden",
+                width: "100%",
+                cursor: isGrabbing ? "grabbing" : "grab",
+                paddingTop: "16px",
+                paddingBottom: "24px",
+                touchAction: "pan-y",
+                maskImage: "linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%)",
+              }}
+            >
+              <div
+                ref={trackRef}
+                style={{
+                  display: "flex",
+                  gap: "24px",
+                  width: "max-content",
+                  willChange: "transform",
+                  userSelect: "none",
+                  paddingLeft: "24px",
+                  paddingRight: "24px",
+                }}
+              >
+                {projectData.map((project) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    darkMode={darkMode}
+                    isGrid={false}
+                    onLinkClick={canClickLink}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Dots */}
+            <div className="flex items-center justify-center gap-2 mt-2 mb-2">
+              {projectData.map((project, idx) => (
+                <button
+                  key={project.id}
+                  onClick={() => jumpToIndex(idx)}
+                  title={`${project.title} (${idx + 1}/7)`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    activeIndex === idx
+                      ? "w-8 bg-blue-600 dark:bg-blue-500"
+                      : "w-2.5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ const Experience = () => {
     {
       company: "UpToSkills",
       title: "AIML Team Lead Intern",
-      duration: "May 2026 – Present",
+      duration: "May 2026 – July 13, 2026",
       location: "Remote",
       description: "Leading cross-functional AI/ML and analytics intern teams. Responsible for overseeing internship workflows, task coordination, attendance tracking, and submission management to ensure high-quality and timely delivery.",
       responsibilities: [
