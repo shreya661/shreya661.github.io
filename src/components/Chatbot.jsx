@@ -50,6 +50,42 @@ const getResponse = (input) => {
     };
   }
 
+  // Disadvantages / Weaknesses / Areas of Improvement & Overcoming Challenges
+  if (/disadvantag|weakness|limitation|area.*(improve|growth)|drawback|negative|struggle|challenge.*overcome|how.*overcome|over come|flaw/.test(msg)) {
+    return {
+      text: `🌱 Constructive Growth Areas & How Shreya Proactively Overcomes Them:\n\n1. 🔍 Early Perfectionism vs. Fast Iteration:\n   • The Challenge: Shreya's strong attention to architectural design and detail can sometimes tempt her to over-polish early-stage prototypes.\n   • How She Overcomes It: She practices an agile MVP-first methodology — shipping a working version rapidly, validating with real user and mentor feedback, and refining iteratively in sprints.\n\n2. 🏢 Massive-Scale Distributed Infrastructure:\n   • The Challenge: While she has strong hands-on mastery of full-stack AI, FastAPI backends, and PostgreSQL, she has less production exposure to large-scale enterprise Kubernetes orchestration or multi-region microservice deployments.\n   • How She Overcomes It: She actively studies system design fundamentals, container orchestration (Docker), and seeks mentorship from senior architects to rapidly scale her production systems engineering.\n\n3. ⚡ Fast-Moving AI Ecosystem:\n   • The Challenge: The Generative AI ecosystem introduces new libraries, models, and research daily, which can easily divert focus.\n   • How She Overcomes It: She maintains a disciplined filter — focusing deeply on foundational principles (evaluation, latency, cost, and reliability) while building focused POCs on GitHub to validate new technologies.\n\n💡 Bottom Line: Shreya pairs deep self-awareness with an active growth mindset, treating every limitation as an exciting challenge to master!`,
+      chips: ["🌟 Why hire Shreya?", "🚀 View Projects", "💼 UpToSkills Experience", "📄 Resume", "📬 Contact"],
+      actions: [
+        { label: "📄 View Resume", url: RESUME_URL, primary: true },
+        { label: "✉️ Email Shreya", url: `mailto:${EMAIL}?subject=Discussion%20with%20Shreya`, primary: true },
+      ],
+    };
+  }
+
+  // Handling Pressure, Deadlines & Stress
+  if (/pressure|stress|deadline|workload|crunch|tight schedule|handle.*pressure/.test(msg)) {
+    return {
+      text: `⚡ How Shreya Thrives Under Pressure & Manages Tight Deadlines:\n\n1. 🎯 Ruthless Prioritization: Uses impact vs. effort matrices to identify critical path deliverables first.\n2. ⏱️ Agile Sprints: Breaks complex features into small, testable milestones — a practice she honed as AIML Team Lead Intern at UpToSkills.\n3. 🗣️ Proactive Communication: Keeps team members and stakeholders informed early if scope adjustments or blockers arise.\n4. 🧘 Composure & Focus: Approaches bugs and high-stakes deadlines with systematic debugging and calm root-cause analysis.`,
+      chips: ["🌟 Why hire Shreya?", "💼 UpToSkills Experience", "📄 Resume", "📬 Contact"],
+    };
+  }
+
+  // Future Goals & 3-5 Year Vision
+  if (/future|vision|3 years|5 years|goal|goals|aspire|aspiration|career plan|where.*see/.test(msg)) {
+    return {
+      text: `🚀 Shreya's Career Vision & Long-Term Goals:\n\n• 🎯 Short-Term (1–2 Years): Excel as an AI/ML Engineer in a high-growth team, taking end-to-end ownership of production LLM pipelines, autonomous agents, and backend microservices.\n• 🌟 Long-Term (3–5 Years): Grow into a Lead AI Systems Architect who spearheads innovative, ethical AI architectures that solve large-scale problems for millions of users.\n• 📚 Core Driver: Continually pushing the boundary between cutting-edge AI research and dependable production software.`,
+      chips: ["🎯 Target Roles", "🚀 View Projects", "🛠️ Tech Stack", "📄 Resume"],
+    };
+  }
+
+  // Why AI/ML / Passion
+  if (/why ai|why ml|why machine learning|why choose ai|passion|interest in ai/.test(msg)) {
+    return {
+      text: `💡 Why Shreya Chose AI & Machine Learning:\n\n"What excites me most about AI is the ability to transform complex, unstructured human data — text, code, voice, and vision — into intelligent systems that genuinely simplify people's lives.\n\nFrom building IntervIO to give candidates fair mock interview feedback, to EduBridge making tutoring accessible, I love turning theoretical algorithms into working software that solves real human pain points."`,
+      chips: ["🚀 View Projects", "🌟 Why hire Shreya?", "💼 UpToSkills Experience", "📄 Resume"],
+    };
+  }
+
   // Experience & Leadership at UpToSkills
   if (/experience|work|job|intern|uptoskills|lead|leadership|history|career|skillnova|mentor|team lead/.test(msg)) {
     return {
