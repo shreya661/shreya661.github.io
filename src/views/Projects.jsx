@@ -228,12 +228,7 @@ const Projects = () => {
       // Direct drag tracking
       scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.45;
     } else {
-      // Apply edge hover speed if cursor is resting near left or right edge
-      if (Math.abs(hoverZoneSpeedRef.current) > 0.1) {
-        targetScrollRef.current += hoverZoneSpeedRef.current;
-      }
-
-      // Apply flick momentum velocity
+      // Apply flick momentum velocity only when user released a drag
       if (Math.abs(velocityRef.current) > 0.05) {
         targetScrollRef.current += velocityRef.current;
         velocityRef.current *= 0.92; // smooth friction
@@ -251,7 +246,7 @@ const Projects = () => {
       }
 
       // Smooth continuous lerp towards target position
-      scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.12;
+      scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.15;
     }
 
     // Hard clamp rendered position
@@ -290,7 +285,6 @@ const Projects = () => {
     lastTimeRef.current = performance.now();
     dragStartScrollRef.current = scrollPosRef.current;
     velocityRef.current = 0;
-    hoverZoneSpeedRef.current = 0;
 
     if (containerRef.current) {
       try {
@@ -301,60 +295,33 @@ const Projects = () => {
     }
   };
 
-  // Pointer Move: Both active drag and cursor-driven hover scroll
+  // Pointer Move: Only moves when user is actively dragging (NO auto hover slide)
   const handlePointerMove = (e) => {
     const maxScroll = getMaxScroll();
-    if (maxScroll <= 0) return;
+    if (maxScroll <= 0 || !isDraggingRef.current) return;
 
-    if (isDraggingRef.current) {
-      const currentX = e.clientX;
-      const deltaX = currentX - lastXRef.current;
-      const totalDelta = currentX - startXRef.current;
-      const now = performance.now();
-      const timeDelta = Math.max(now - lastTimeRef.current, 8);
+    const currentX = e.clientX;
+    const deltaX = currentX - lastXRef.current;
+    const totalDelta = currentX - startXRef.current;
+    const now = performance.now();
+    const timeDelta = Math.max(now - lastTimeRef.current, 8);
 
-      if (Math.abs(totalDelta) > 6) {
-        hasDraggedRef.current = true;
-      }
-
-      // Dragging left scrolls rightwards, dragging right scrolls leftwards
-      const newTarget = dragStartScrollRef.current - totalDelta;
-      targetScrollRef.current = Math.max(0, Math.min(maxScroll, newTarget));
-
-      // Calculate instantaneous throw velocity
-      velocityRef.current = -(deltaX / timeDelta) * 16;
-
-      lastXRef.current = currentX;
-      lastTimeRef.current = now;
-    } else {
-      // Hover control: moving the cursor left or right scrolls the cards
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const relX = (e.clientX - rect.left) / rect.width;
-
-        // 1. Moving mouse left/right directly pushes the scroll
-        if (e.movementX && Math.abs(e.movementX) > 0.4) {
-          // Moving cursor right pushes scroll forward; moving cursor left pushes scroll back
-          const step = e.movementX * 1.6;
-          targetScrollRef.current = Math.max(0, Math.min(maxScroll, targetScrollRef.current + step));
-        }
-
-        // 2. Resting cursor near right edge (> 75%) smoothly glides rightward to card 7 and stops
-        //    Resting cursor near left edge (< 25%) smoothly glides leftward to card 1 and stops
-        if (relX > 0.75) {
-          const intensity = (relX - 0.75) / 0.25;
-          hoverZoneSpeedRef.current = intensity * 7;
-        } else if (relX < 0.25) {
-          const intensity = (0.25 - relX) / 0.25;
-          hoverZoneSpeedRef.current = -intensity * 7;
-        } else {
-          hoverZoneSpeedRef.current = 0;
-        }
-      }
+    if (Math.abs(totalDelta) > 6) {
+      hasDraggedRef.current = true;
     }
+
+    // Dragging left scrolls rightwards, dragging right scrolls leftwards
+    const newTarget = dragStartScrollRef.current - totalDelta;
+    targetScrollRef.current = Math.max(0, Math.min(maxScroll, newTarget));
+
+    // Calculate instantaneous throw velocity
+    velocityRef.current = -(deltaX / timeDelta) * 16;
+
+    lastXRef.current = currentX;
+    lastTimeRef.current = now;
   };
 
-  // Pointer Up or Leave
+  // Pointer Up
   const handlePointerUp = (e) => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
@@ -374,7 +341,10 @@ const Projects = () => {
   };
 
   const handlePointerLeave = () => {
-    hoverZoneSpeedRef.current = 0;
+    if (isDraggingRef.current) {
+      isDraggingRef.current = false;
+      setIsGrabbing(false);
+    }
   };
 
   // Mouse wheel horizontal scroll support
@@ -544,7 +514,7 @@ const Projects = () => {
           }`}
         >
           <span className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-gray-300/40 dark:border-gray-700/60 bg-gray-100/50 dark:bg-gray-800/50">
-            🖱️ <strong>Move or touch cursor</strong> left / right to scroll • 7 Repos (Stops at ends)
+            👈 <strong>Drag to slide</strong> or use arrows &amp; dots • 7 Projects (Stops at ends) 👉
           </span>
         </motion.div>
       </div>
