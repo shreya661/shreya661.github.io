@@ -1,19 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.b33442c0.css",
-    "main.js": "/static/js/main.da2605e2.js",
+    "main.css": "/static/css/main.557816e2.css",
+    "main.js": "/static/js/main.a5b292ce.js",
     "static/js/453.d7c805ec.chunk.js": "/static/js/453.d7c805ec.chunk.js",
+    "static/media/researchai.jpg": "/static/media/researchai.f2e3c9b09d6376e47470.jpg",
+    "static/media/intervio.jpg": "/static/media/intervio.96dc072d0ed24478cd62.jpg",
+    "static/media/navi360.jpg": "/static/media/navi360.2204d3b1f5e1e9396d02.jpg",
+    "static/media/launchpad.jpg": "/static/media/launchpad.470b9eec8f05962eaa00.jpg",
+    "static/media/journalai.jpg": "/static/media/journalai.eccc40ce5aac68f2f0ee.jpg",
+    "static/media/sentiment.jpg": "/static/media/sentiment.43de7cfa1eb7d3da8464.jpg",
+    "static/media/edubridge.jpg": "/static/media/edubridge.5601441943479c8474bb.jpg",
     "static/media/ShreyaPatha.jpg": "/static/media/ShreyaPatha.462936e79a222c58ebad.jpg",
-    "static/media/webdev.svg": "/static/media/webdev.80d48f4797a85962149f7d56a454e535.svg",
-    "static/media/cloudBg.png": "/static/media/cloudBg.f28b5c6961fd82be839c.png",
-    "static/media/cloudDark.png": "/static/media/cloudDark.51edaa54cabe7b964ae9.png",
     "index.html": "/index.html",
-    "main.b33442c0.css.map": "/static/css/main.b33442c0.css.map",
-    "main.da2605e2.js.map": "/static/js/main.da2605e2.js.map",
+    "main.557816e2.css.map": "/static/css/main.557816e2.css.map",
+    "main.a5b292ce.js.map": "/static/js/main.a5b292ce.js.map",
     "453.d7c805ec.chunk.js.map": "/static/js/453.d7c805ec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b33442c0.css",
-    "static/js/main.da2605e2.js"
+    "static/css/main.557816e2.css",
+    "static/js/main.a5b292ce.js"
   ]
 }
