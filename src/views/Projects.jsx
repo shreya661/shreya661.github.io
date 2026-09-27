@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ThemeContext } from "../themeProvider";
 
@@ -89,8 +89,8 @@ const projectData = [
   },
 ];
 
-// Duplicate cards for seamless infinite loop
-const allCards = [...projectData, ...projectData];
+// Triplicate for seamless infinite loop in both directions
+const allCards = [...projectData, ...projectData, ...projectData];
 
 const GitHubIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -100,7 +100,7 @@ const GitHubIcon = () => (
 
 const ProjectCard = ({ project, darkMode }) => (
   <div
-    className={`flex-shrink-0 w-72 rounded-2xl overflow-hidden border transition-all duration-300 group ${
+    className={`flex-shrink-0 w-72 rounded-2xl overflow-hidden border transition-colors duration-300 ${
       darkMode
         ? "bg-white border-gray-200 hover:border-blue-300"
         : "bg-gray-800 border-gray-700 hover:border-gray-500"
@@ -111,11 +111,8 @@ const ProjectCard = ({ project, darkMode }) => (
         : "0 4px 20px rgba(0,0,0,0.3)",
     }}
   >
-    {/* Gradient top bar */}
     <div className={`h-1 w-full bg-gradient-to-r ${project.accent}`} />
-
     <div className="p-5">
-      {/* Top row: emoji + tag */}
       <div className="flex items-center justify-between mb-4">
         <span className="text-2xl">{project.emoji}</span>
         <span
@@ -126,47 +123,23 @@ const ProjectCard = ({ project, darkMode }) => (
           {project.tag}
         </span>
       </div>
-
-      {/* Title */}
-      <h3
-        className={`text-base font-bold mb-0.5 ${
-          darkMode ? "text-gray-900" : "text-white"
-        }`}
-      >
+      <h3 className={`text-base font-bold mb-0.5 ${darkMode ? "text-gray-900" : "text-white"}`}>
         {project.title}
       </h3>
-      <p
-        className={`text-xs font-semibold mb-3 bg-gradient-to-r ${project.accent} bg-clip-text text-transparent`}
-      >
+      <p className={`text-xs font-semibold mb-3 bg-gradient-to-r ${project.accent} bg-clip-text text-transparent`}>
         {project.subtitle}
       </p>
-
-      {/* Description */}
-      <p
-        className={`text-xs leading-relaxed mb-4 line-clamp-3 ${
-          darkMode ? "text-gray-500" : "text-gray-400"
-        }`}
-      >
+      <p className={`text-xs leading-relaxed mb-4 ${darkMode ? "text-gray-500" : "text-gray-400"}`}
+        style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
         {project.description}
       </p>
-
-      {/* Tech badges */}
       <div className="flex flex-wrap gap-1.5 mb-4">
         {project.tech.map((t) => (
-          <span
-            key={t}
-            className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-              darkMode
-                ? "bg-gray-100 text-gray-600 border border-gray-200"
-                : "bg-gray-700 text-gray-300 border border-gray-600"
-            }`}
-          >
-            {t}
-          </span>
+          <span key={t} className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+            darkMode ? "bg-gray-100 text-gray-600 border border-gray-200" : "bg-gray-700 text-gray-300 border border-gray-600"
+          }`}>{t}</span>
         ))}
       </div>
-
-      {/* GitHub button */}
       <a
         href={project.github}
         target="_blank"
@@ -185,13 +158,82 @@ const Projects = () => {
   const theme = useContext(ThemeContext);
   const darkMode = theme.state.darkMode;
 
+  const containerRef = useRef(null);
+  const trackRef = useRef(null);
+  const offsetRef = useRef(0);       // current scroll offset in px
+  const speedRef = useRef(0);        // current speed (-ve = right, +ve = left)
+  const rafRef = useRef(null);
+  const isInsideRef = useRef(false); // whether cursor is over the section
+
+  // Animate loop
+  const animate = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) { rafRef.current = requestAnimationFrame(animate); return; }
+
+    // Easing: gradually approach target speed
+    // When cursor is inside and driving, speedRef is set by mousemove
+    // When cursor leaves, decelerate to 0
+    if (!isInsideRef.current) {
+      speedRef.current *= 0.92; // smooth deceleration
+    }
+
+    if (Math.abs(speedRef.current) > 0.05) {
+      offsetRef.current += speedRef.current;
+
+      // Loop bounds: each set of 7 cards is 1/3 of total track
+      const oneSet = track.scrollWidth / 3;
+      if (offsetRef.current >= oneSet * 2) offsetRef.current -= oneSet;
+      if (offsetRef.current < 0) offsetRef.current += oneSet;
+
+      track.style.transform = `translateX(-${offsetRef.current}px)`;
+    }
+
+    rafRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  useEffect(() => {
+    // Start at middle set for infinite bi-directional scroll
+    const track = trackRef.current;
+    if (track) {
+      const oneSet = track.scrollWidth / 3;
+      offsetRef.current = oneSet; // start at middle
+      track.style.transform = `translateX(-${offsetRef.current}px)`;
+    }
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [animate]);
+
+  const handleMouseMove = (e) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+    const relX = e.clientX - rect.left;
+    const width = rect.width;
+    // Map 0→width to -1→+1 (center = 0)
+    const normalized = (relX / width) * 2 - 1;
+    // Dead zone in center ±10%
+    const deadZone = 0.1;
+    if (Math.abs(normalized) < deadZone) {
+      speedRef.current = 0;
+    } else {
+      // Max speed = 6px/frame, proportional to distance from center
+      const adjusted = normalized > 0
+        ? (normalized - deadZone) / (1 - deadZone)
+        : (normalized + deadZone) / (1 - deadZone);
+      speedRef.current = adjusted * 6;
+    }
+  };
+
+  const handleMouseEnter = () => { isInsideRef.current = true; };
+  const handleMouseLeave = () => { isInsideRef.current = false; };
+
   return (
     <div
       id="projects"
       className={darkMode ? "bg-white text-black" : "bg-gray-900 text-white"}
     >
       <div className="pt-16 pb-16">
-        {/* Section heading */}
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -200,44 +242,53 @@ const Projects = () => {
           className="text-center mb-10 px-4"
         >
           <h2 className="text-5xl font-bold">
-            <span className="border-b-4 border-blue-500 p-2 inline-block">
-              Projects
-            </span>
+            <span className="border-b-4 border-blue-500 p-2 inline-block">Projects</span>
           </h2>
-          <p
-            className={`mt-5 text-base max-w-xl mx-auto ${
-              darkMode ? "text-gray-500" : "text-gray-400"
-            }`}
-          >
-            7 AI-powered applications — built end-to-end with Python, LLMs,
-            FastAPI &amp; more.
+          <p className={`mt-5 text-base max-w-xl mx-auto ${darkMode ? "text-gray-500" : "text-gray-400"}`}>
+            7 AI-powered applications — built end-to-end with Python, LLMs, FastAPI &amp; more.
           </p>
         </motion.div>
 
-        {/* ── Infinite marquee row ── */}
+        {/* Cursor-driven slider */}
         <div
-          className="marquee-wrapper py-4"
-          style={{ paddingLeft: 0, paddingRight: 0 }}
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            overflow: "hidden",
+            width: "100%",
+            cursor: "ew-resize",
+            paddingTop: "16px",
+            paddingBottom: "16px",
+            maskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+          }}
         >
-          <div className="marquee-track" style={{ gap: "20px" }}>
+          <div
+            ref={trackRef}
+            style={{
+              display: "flex",
+              gap: "20px",
+              width: "max-content",
+              willChange: "transform",
+            }}
+          >
             {allCards.map((project, i) => (
               <ProjectCard key={`${project.title}-${i}`} project={project} darkMode={darkMode} />
             ))}
           </div>
         </div>
 
-        {/* Hint text */}
+        {/* Hint */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className={`text-center text-xs mt-6 ${
-            darkMode ? "text-gray-400" : "text-gray-500"
-          }`}
+          transition={{ delay: 0.4 }}
+          className={`text-center text-xs mt-6 ${darkMode ? "text-gray-400" : "text-gray-500"}`}
         >
-          ✦ Hover over a card to pause · Click{" "}
-          <span className="font-semibold">View on GitHub</span> to explore the repo
+          ↔ Move your cursor <span className="font-semibold">left</span> or <span className="font-semibold">right</span> over the cards to scroll
         </motion.p>
       </div>
     </div>
