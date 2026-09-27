@@ -4,6 +4,7 @@ import { ThemeContext } from "../themeProvider";
 
 const projectData = [
   {
+    id: 1,
     emoji: "🎙️",
     title: "IntervIO",
     subtitle: "AI Interview Platform",
@@ -16,6 +17,7 @@ const projectData = [
     tagBg: "bg-blue-100 text-blue-700",
   },
   {
+    id: 2,
     emoji: "🎓",
     title: "EduBridge AI",
     subtitle: "AI School Assistant",
@@ -28,6 +30,7 @@ const projectData = [
     tagBg: "bg-violet-100 text-violet-700",
   },
   {
+    id: 3,
     emoji: "🧭",
     title: "NAVI 360",
     subtitle: "AI Career Platform",
@@ -40,6 +43,7 @@ const projectData = [
     tagBg: "bg-emerald-100 text-emerald-700",
   },
   {
+    id: 4,
     emoji: "📔",
     title: "Journal AI",
     subtitle: "Emotion-Aware Journaling",
@@ -52,6 +56,7 @@ const projectData = [
     tagBg: "bg-rose-100 text-rose-700",
   },
   {
+    id: 5,
     emoji: "🚀",
     title: "LaunchPad",
     subtitle: "AI Productivity App",
@@ -64,6 +69,7 @@ const projectData = [
     tagBg: "bg-orange-100 text-orange-700",
   },
   {
+    id: 6,
     emoji: "🔬",
     title: "Research AI",
     subtitle: "Academic Paper Synthesis",
@@ -76,6 +82,7 @@ const projectData = [
     tagBg: "bg-sky-100 text-sky-700",
   },
   {
+    id: 7,
     emoji: "📊",
     title: "Sentiment NLP",
     subtitle: "Social Media Analytics",
@@ -88,9 +95,6 @@ const projectData = [
     tagBg: "bg-fuchsia-100 text-fuchsia-700",
   },
 ];
-
-// Triplicate for seamless continuous infinite loop in both directions
-const allCards = [...projectData, ...projectData, ...projectData];
 
 const GitHubIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -112,63 +116,67 @@ const ProjectCard = ({ project, darkMode, onLinkClick }) => (
     }}
   >
     <div className={`h-1.5 w-full bg-gradient-to-r ${project.accent}`} />
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-3xl">{project.emoji}</span>
-        <span
-          className={`text-xs font-semibold px-3 py-1 rounded-full ${
-            darkMode ? project.tagBg : "bg-gray-700 text-gray-200"
-          }`}
-        >
-          {project.tag}
-        </span>
-      </div>
-      <h3 className={`text-lg font-bold mb-1 ${darkMode ? "text-gray-900" : "text-white"}`}>
-        {project.title}
-      </h3>
-      <p className={`text-xs font-semibold mb-3 bg-gradient-to-r ${project.accent} bg-clip-text text-transparent`}>
-        {project.subtitle}
-      </p>
-      <p
-        className={`text-xs leading-relaxed mb-4 ${darkMode ? "text-gray-600" : "text-gray-300"}`}
-        style={{
-          display: "-webkit-box",
-          WebkitLineClamp: 3,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-        }}
-      >
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-1.5 mb-5">
-        {project.tech.map((t) => (
+    <div className="p-6 flex flex-col justify-between h-full">
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-3xl">{project.emoji}</span>
           <span
-            key={t}
-            className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
-              darkMode
-                ? "bg-gray-100 text-gray-700 border border-gray-200"
-                : "bg-gray-700 text-gray-300 border border-gray-600"
+            className={`text-xs font-semibold px-3 py-1 rounded-full ${
+              darkMode ? project.tagBg : "bg-gray-700 text-gray-200"
             }`}
           >
-            {t}
+            {project.tag}
           </span>
-        ))}
+        </div>
+        <h3 className={`text-lg font-bold mb-1 ${darkMode ? "text-gray-900" : "text-white"}`}>
+          {project.title}
+        </h3>
+        <p className={`text-xs font-semibold mb-3 bg-gradient-to-r ${project.accent} bg-clip-text text-transparent`}>
+          {project.subtitle}
+        </p>
+        <p
+          className={`text-xs leading-relaxed mb-4 ${darkMode ? "text-gray-600" : "text-gray-300"}`}
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {project.tech.map((t) => (
+            <span
+              key={t}
+              className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
+                darkMode
+                  ? "bg-gray-100 text-gray-700 border border-gray-200"
+                  : "bg-gray-700 text-gray-300 border border-gray-600"
+              }`}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
       </div>
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={(e) => {
-          if (onLinkClick && !onLinkClick()) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
-        }}
-        className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r ${project.accent} hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200`}
-      >
-        <GitHubIcon />
-        View on GitHub
-      </a>
+      <div>
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => {
+            if (onLinkClick && !onLinkClick()) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }}
+          className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r ${project.accent} hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200`}
+        >
+          <GitHubIcon />
+          View on GitHub
+        </a>
+      </div>
     </div>
   </div>
 );
@@ -179,84 +187,100 @@ const Projects = () => {
 
   const containerRef = useRef(null);
   const trackRef = useRef(null);
-  const offsetRef = useRef(0);
+
+  // Scroll position and target (clamped between 0 and maxScroll, NO infinite loop)
+  const scrollPosRef = useRef(0);
+  const targetScrollRef = useRef(0);
   const velocityRef = useRef(0);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
+  const dragStartScrollRef = useRef(0);
   const lastXRef = useRef(0);
   const lastTimeRef = useRef(0);
-  const singleSetWidthRef = useRef(0);
   const hasDraggedRef = useRef(false);
   const rafRef = useRef(null);
-  const [isGrabbing, setIsGrabbing] = useState(false);
+  const hoverZoneSpeedRef = useRef(0);
 
-  // Measure exact single set width
-  const measureSetWidth = useCallback(() => {
+  const [isGrabbing, setIsGrabbing] = useState(false);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Compute maximum scroll distance
+  const getMaxScroll = useCallback(() => {
     const track = trackRef.current;
-    if (!track || !track.children || track.children.length < projectData.length + 1) return;
-    const firstChild = track.children[0];
-    const setEndChild = track.children[projectData.length];
-    if (firstChild && setEndChild) {
-      const width = setEndChild.offsetLeft - firstChild.offsetLeft;
-      if (width > 0) {
-        singleSetWidthRef.current = width;
-      }
-    }
+    const container = containerRef.current;
+    if (!track || !container) return 0;
+    return Math.max(0, track.scrollWidth - container.clientWidth);
   }, []);
 
-  // Continuous animation loop with inertia and seamless wrapping
+  // Continuous animation loop (bounded between 0 and maxScroll)
   const animate = useCallback(() => {
     const track = trackRef.current;
-    const singleSet = singleSetWidthRef.current;
+    if (!track) {
+      rafRef.current = requestAnimationFrame(animate);
+      return;
+    }
 
-    if (track && singleSet > 0) {
-      // If user is not dragging, apply inertia friction
-      if (!isDraggingRef.current) {
-        if (Math.abs(velocityRef.current) > 0.02) {
-          offsetRef.current += velocityRef.current;
-          velocityRef.current *= 0.94; // smooth friction
-        } else {
-          velocityRef.current = 0;
-        }
+    const maxScroll = getMaxScroll();
+
+    if (isDraggingRef.current) {
+      // Direct drag tracking
+      scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.45;
+    } else {
+      // Apply edge hover speed if cursor is resting near left or right edge
+      if (Math.abs(hoverZoneSpeedRef.current) > 0.1) {
+        targetScrollRef.current += hoverZoneSpeedRef.current;
       }
 
-      // Seamless infinite continuous loop in both directions
-      if (offsetRef.current >= singleSet * 2) {
-        offsetRef.current -= singleSet;
-      } else if (offsetRef.current < singleSet) {
-        offsetRef.current += singleSet;
+      // Apply flick momentum velocity
+      if (Math.abs(velocityRef.current) > 0.05) {
+        targetScrollRef.current += velocityRef.current;
+        velocityRef.current *= 0.92; // smooth friction
+      } else {
+        velocityRef.current = 0;
       }
 
-      track.style.transform = `translate3d(-${offsetRef.current}px, 0, 0)`;
+      // Strict boundaries: stops cleanly at left (0) and right (maxScroll) - NO LOOP
+      if (targetScrollRef.current < 0) {
+        targetScrollRef.current = 0;
+        velocityRef.current = 0;
+      } else if (targetScrollRef.current > maxScroll) {
+        targetScrollRef.current = maxScroll;
+        velocityRef.current = 0;
+      }
+
+      // Smooth continuous lerp towards target position
+      scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.12;
+    }
+
+    // Hard clamp rendered position
+    const clampedPos = Math.max(0, Math.min(maxScroll, scrollPosRef.current));
+    scrollPosRef.current = clampedPos;
+
+    track.style.transform = `translate3d(-${clampedPos}px, 0, 0)`;
+
+    // Update boundaries and progress index
+    setAtStart(clampedPos <= 10);
+    setAtEnd(maxScroll > 0 && clampedPos >= maxScroll - 10);
+
+    if (maxScroll > 0) {
+      const idx = Math.min(
+        projectData.length - 1,
+        Math.max(0, Math.round((clampedPos / maxScroll) * (projectData.length - 1)))
+      );
+      setActiveIndex(idx);
     }
 
     rafRef.current = requestAnimationFrame(animate);
-  }, []);
+  }, [getMaxScroll]);
 
   useEffect(() => {
-    measureSetWidth();
-    window.addEventListener("resize", measureSetWidth);
-
-    // Initial offset in the middle set
-    setTimeout(() => {
-      measureSetWidth();
-      if (singleSetWidthRef.current > 0) {
-        offsetRef.current = singleSetWidthRef.current;
-        if (trackRef.current) {
-          trackRef.current.style.transform = `translate3d(-${offsetRef.current}px, 0, 0)`;
-        }
-      }
-    }, 100);
-
     rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [animate]);
 
-    return () => {
-      window.removeEventListener("resize", measureSetWidth);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, [animate, measureSetWidth]);
-
-  // Pointer Down (Mouse or Touch)
+  // Pointer Down: Start Drag
   const handlePointerDown = (e) => {
     isDraggingRef.current = true;
     hasDraggedRef.current = false;
@@ -264,38 +288,68 @@ const Projects = () => {
     startXRef.current = e.clientX;
     lastXRef.current = e.clientX;
     lastTimeRef.current = performance.now();
+    dragStartScrollRef.current = scrollPosRef.current;
     velocityRef.current = 0;
+    hoverZoneSpeedRef.current = 0;
 
     if (containerRef.current) {
-      containerRef.current.setPointerCapture(e.pointerId);
+      try {
+        containerRef.current.setPointerCapture(e.pointerId);
+      } catch {
+        // Safe fallback
+      }
     }
   };
 
-  // Pointer Move: Both active drag and cursor-driven scrub
+  // Pointer Move: Both active drag and cursor-driven hover scroll
   const handlePointerMove = (e) => {
+    const maxScroll = getMaxScroll();
+    if (maxScroll <= 0) return;
+
     if (isDraggingRef.current) {
       const currentX = e.clientX;
       const deltaX = currentX - lastXRef.current;
+      const totalDelta = currentX - startXRef.current;
       const now = performance.now();
       const timeDelta = Math.max(now - lastTimeRef.current, 8);
 
-      if (Math.abs(currentX - startXRef.current) > 6) {
+      if (Math.abs(totalDelta) > 6) {
         hasDraggedRef.current = true;
       }
 
-      // Move cards directly with cursor
-      offsetRef.current -= deltaX;
+      // Dragging left scrolls rightwards, dragging right scrolls leftwards
+      const newTarget = dragStartScrollRef.current - totalDelta;
+      targetScrollRef.current = Math.max(0, Math.min(maxScroll, newTarget));
 
-      // Track velocity for inertia release (px per frame ~16ms)
+      // Calculate instantaneous throw velocity
       velocityRef.current = -(deltaX / timeDelta) * 16;
 
       lastXRef.current = currentX;
       lastTimeRef.current = now;
     } else {
-      // Hover control: moving the cursor horizontally moves the cards
-      if (e.movementX && Math.abs(e.movementX) > 0.5) {
-        // Pushing cursor left/right smoothly steers the continuous cards
-        velocityRef.current = -e.movementX * 0.45;
+      // Hover control: moving the cursor left or right scrolls the cards
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width;
+
+        // 1. Moving mouse left/right directly pushes the scroll
+        if (e.movementX && Math.abs(e.movementX) > 0.4) {
+          // Moving cursor right pushes scroll forward; moving cursor left pushes scroll back
+          const step = e.movementX * 1.6;
+          targetScrollRef.current = Math.max(0, Math.min(maxScroll, targetScrollRef.current + step));
+        }
+
+        // 2. Resting cursor near right edge (> 75%) smoothly glides rightward to card 7 and stops
+        //    Resting cursor near left edge (< 25%) smoothly glides leftward to card 1 and stops
+        if (relX > 0.75) {
+          const intensity = (relX - 0.75) / 0.25;
+          hoverZoneSpeedRef.current = intensity * 7;
+        } else if (relX < 0.25) {
+          const intensity = (0.25 - relX) / 0.25;
+          hoverZoneSpeedRef.current = -intensity * 7;
+        } else {
+          hoverZoneSpeedRef.current = 0;
+        }
       }
     }
   };
@@ -311,29 +365,45 @@ const Projects = () => {
         containerRef.current.releasePointerCapture(e.pointerId);
       }
     } catch {
-      // Ignore if pointer capture already released
+      // Safe fallback
     }
 
-    // Cap maximum throw velocity for smooth glide
-    if (velocityRef.current > 24) velocityRef.current = 24;
-    if (velocityRef.current < -24) velocityRef.current = -24;
+    // Limit maximum throw velocity
+    if (velocityRef.current > 20) velocityRef.current = 20;
+    if (velocityRef.current < -20) velocityRef.current = -20;
+  };
+
+  const handlePointerLeave = () => {
+    hoverZoneSpeedRef.current = 0;
   };
 
   // Mouse wheel horizontal scroll support
   const handleWheel = (e) => {
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     if (Math.abs(delta) > 1) {
-      velocityRef.current = delta * 0.25;
+      const maxScroll = getMaxScroll();
+      targetScrollRef.current = Math.max(0, Math.min(maxScroll, targetScrollRef.current + delta * 0.4));
     }
   };
 
-  // Chevron step button handlers (step left / right by one card width)
+  // Step buttons (one card width)
   const stepLeft = () => {
-    velocityRef.current = -12;
+    const cardStep = 344; // card width (320px) + gap (24px)
+    targetScrollRef.current = Math.max(0, targetScrollRef.current - cardStep);
   };
 
   const stepRight = () => {
-    velocityRef.current = 12;
+    const maxScroll = getMaxScroll();
+    const cardStep = 344;
+    targetScrollRef.current = Math.min(maxScroll, targetScrollRef.current + cardStep);
+  };
+
+  // Jump directly to specific project by index (0..6)
+  const jumpToIndex = (index) => {
+    const maxScroll = getMaxScroll();
+    if (maxScroll <= 0) return;
+    const ratio = index / (projectData.length - 1);
+    targetScrollRef.current = ratio * maxScroll;
   };
 
   const canClickLink = () => !hasDraggedRef.current;
@@ -350,7 +420,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10 px-4"
+          className="text-center mb-8 px-4"
         >
           <h2 className="text-5xl font-bold">
             <span className="border-b-4 border-blue-500 p-2 inline-block">Projects</span>
@@ -361,15 +431,20 @@ const Projects = () => {
         </motion.div>
 
         {/* Carousel Container */}
-        <div className="relative group max-w-full">
-          {/* Navigation Arrow Left */}
+        <div className="relative group max-w-full px-2 sm:px-6">
+          {/* Navigation Arrow Left (Stops cleanly at start) */}
           <button
             onClick={stepLeft}
+            disabled={atStart}
             aria-label="Previous Projects"
-            className={`absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 ${
+            className={`absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
+              atStart
+                ? "opacity-30 cursor-not-allowed pointer-events-none"
+                : "opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
+            } ${
               darkMode
-                ? "bg-white/80 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
-                : "bg-gray-800/80 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
+                ? "bg-white/90 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
+                : "bg-gray-800/90 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
             }`}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -377,14 +452,19 @@ const Projects = () => {
             </svg>
           </button>
 
-          {/* Navigation Arrow Right */}
+          {/* Navigation Arrow Right (Stops cleanly at end) */}
           <button
             onClick={stepRight}
+            disabled={atEnd}
             aria-label="Next Projects"
-            className={`absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 ${
+            className={`absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
+              atEnd
+                ? "opacity-30 cursor-not-allowed pointer-events-none"
+                : "opacity-90 hover:opacity-100 hover:scale-110 active:scale-95"
+            } ${
               darkMode
-                ? "bg-white/80 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
-                : "bg-gray-800/80 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
+                ? "bg-white/90 border-gray-200 text-gray-800 hover:bg-white shadow-gray-300/50"
+                : "bg-gray-800/90 border-gray-700 text-white hover:bg-gray-800 shadow-black/50"
             }`}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -399,16 +479,17 @@ const Projects = () => {
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
+            onPointerLeave={handlePointerLeave}
             onWheel={handleWheel}
             style={{
               overflow: "hidden",
               width: "100%",
               cursor: isGrabbing ? "grabbing" : "grab",
-              paddingTop: "20px",
+              paddingTop: "16px",
               paddingBottom: "24px",
               touchAction: "pan-y",
-              maskImage: "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
+              maskImage: "linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%)",
             }}
           >
             <div
@@ -419,11 +500,14 @@ const Projects = () => {
                 width: "max-content",
                 willChange: "transform",
                 userSelect: "none",
+                paddingLeft: "24px",
+                paddingRight: "24px",
               }}
             >
-              {allCards.map((project, i) => (
+              {/* Exactly 7 project cards: No repeating duplicates */}
+              {projectData.map((project) => (
                 <ProjectCard
-                  key={`${project.title}-${i}`}
+                  key={project.id}
                   project={project}
                   darkMode={darkMode}
                   onLinkClick={canClickLink}
@@ -433,22 +517,34 @@ const Projects = () => {
           </div>
         </div>
 
+        {/* Project Dots Navigation & Indicator (1 to 7) */}
+        <div className="flex items-center justify-center gap-2 mt-2 mb-4">
+          {projectData.map((project, idx) => (
+            <button
+              key={project.id}
+              onClick={() => jumpToIndex(idx)}
+              title={`${project.title} (${idx + 1}/7)`}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                activeIndex === idx
+                  ? "w-8 bg-blue-600 dark:bg-blue-500"
+                  : "w-2.5 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
+              }`}
+            />
+          ))}
+        </div>
+
         {/* Interaction Hint */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className={`flex items-center justify-center gap-3 text-xs mt-4 ${
+          transition={{ delay: 0.2 }}
+          className={`flex items-center justify-center gap-3 text-xs ${
             darkMode ? "text-gray-500" : "text-gray-400"
           }`}
         >
           <span className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-gray-300/40 dark:border-gray-700/60 bg-gray-100/50 dark:bg-gray-800/50">
-            🖱️ <strong>Drag or move cursor</strong> horizontally to slide continuously
-          </span>
-          <span className="hidden sm:inline-block">•</span>
-          <span className="hidden sm:inline-flex items-center gap-1">
-            Infinite continuous loop ♾️
+            🖱️ <strong>Move or touch cursor</strong> left / right to scroll • 7 Repos (Stops at ends)
           </span>
         </motion.div>
       </div>
