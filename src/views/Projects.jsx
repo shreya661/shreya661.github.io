@@ -199,7 +199,6 @@ const Projects = () => {
   const lastTimeRef = useRef(0);
   const hasDraggedRef = useRef(false);
   const rafRef = useRef(null);
-  const hoverZoneSpeedRef = useRef(0);
 
   const [isGrabbing, setIsGrabbing] = useState(false);
   const [atStart, setAtStart] = useState(true);
