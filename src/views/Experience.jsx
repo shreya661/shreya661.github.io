@@ -11,88 +11,147 @@ const Experience = () => {
       company: "UpToSkills",
       title: "AIML Team Lead Intern",
       duration: "May 2026 – July 13, 2026",
+      status: "Completed",
       location: "Remote",
-      description: "Leading cross-functional AI/ML and analytics intern teams. Responsible for overseeing internship workflows, task coordination, attendance tracking, and submission management to ensure high-quality and timely delivery.",
+      tagline: "Led cross-functional AI/ML and analytics intern teams with structured delivery oversight.",
+      description:
+        "Served as Team Lead coordinating distributed teams across generative AI and data analytics projects. Responsible for end-to-end task delegation, workflow orchestration, attendance verification, code review reviews, and performance coaching.",
       responsibilities: [
-        "Oversaw task management, scheduling, attendance, and submission workflows across multiple AI/ML and analytics intern teams",
-        "Coordinated AI/ML technical execution and supported interns in building practical generative AI and machine learning projects",
-        "Maintained structured communication channels and ensured alignment on project milestones and quality standards",
-        "Worked on intern performance analysis using structured data and automated coaching feedback workflows"
-      ]
+        "Oversaw task management, sprint scheduling, attendance tracking, and code submissions across multiple intern squads",
+        "Coordinated AI/ML project execution, unblocking technical hurdles in Generative AI, LLM prompting, and model evaluation",
+        "Established structured peer communication channels, weekly sprint standups, and quality assurance checkpoints",
+        "Conducted structured intern performance assessments and guided hands-on deployment of production-grade AI models"
+      ],
+      skills: ["Technical Leadership", "Sprint Coordination", "AI/ML Workflows", "Generative AI", "Performance Coaching"]
     },
     {
       company: "UpToSkills",
       title: "AIML Intern",
       duration: "March 2026 – April 2026",
+      status: "Completed",
       location: "Remote",
-      description: "Developed SkillNova, an AI-powered conversational support platform for real-time intern guidance and query resolution using LLMs, FastAPI, and automated prompt workflows.",
+      tagline: "Architected SkillNova — an AI-powered conversational support platform for intern query resolution.",
+      description:
+        "Engineered SkillNova, an intelligent conversational agent designed to provide real-time technical answers, onboarding guides, and workflow resolution to hundreds of concurrent interns using LLMs and FastAPI.",
       responsibilities: [
-        "Built SkillNova — an AI support chatbot designed for real-time intern Q&A and technical guidance",
-        "Implemented LLM API integrations, structured prompt engineering workflows, and response optimization",
-        "Designed and deployed FastAPI backend with PostgreSQL integration for chatbot session management",
-        "Explored and implemented practical LLM pipelines using LangChain and Groq API"
-      ]
+        "Architected SkillNova — a specialized AI assistant that decreased repetitive intern support queries significantly",
+        "Implemented high-throughput FastAPI endpoints connected with PostgreSQL for persistent conversation history",
+        "Crafted optimized prompt strategies and evaluated LLM latency and context retrieval using LangChain and Groq API",
+        "Built modular Python pipelines adhering to clean software engineering practices and asynchronous request handling"
+      ],
+      skills: ["FastAPI", "PostgreSQL", "LangChain", "Groq API", "Prompt Engineering", "Conversational AI"]
     }
   ];
 
   return (
     <div
       id="experience"
-      className={darkMode ? "bg-white text-black" : "bg-gray-900 text-white"}
+      className={`relative py-20 transition-colors duration-300 ${
+        darkMode ? "bg-slate-50 text-slate-900" : "bg-[#0b0f19] text-white"
+      }`}
     >
-      <div className="max-w-7xl mx-auto x-4 sm:px-6 lg:px-8 px-4 pt-16 pb-8">
-        <h2 className="text-5xl font-bold px-4 md:px-0 text-center">
-          <p className="text-5xl font-bold border-b-4 border-blue-500 p-2 inline">
-            Experience
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-3 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-violet-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+            CAREER &amp; INDUSTRY EXPERIENCE
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
+            Professional <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent">Journey &amp; Leadership</span>
+          </h2>
+          <p className={`mt-4 text-sm sm:text-base max-w-2xl mx-auto ${darkMode ? "text-slate-600" : "text-slate-400"}`}>
+            Hands-on technical leadership, conversational AI system architecture, and real-world delivery across fast-paced AI/ML environments.
           </p>
-        </h2>
+        </motion.div>
 
-        <h4 className="mt-8 text-3xl font-semibold text-blue-600">
-          Professional Journey
-        </h4>
-
-        <div className="mt-8 space-y-8">
+        {/* Timeline Container */}
+        <div className="relative pl-6 sm:pl-10 space-y-12 before:absolute before:left-2 sm:before:left-4 before:top-3 before:bottom-3 before:w-0.5 before:bg-gradient-to-b before:from-blue-500 before:via-indigo-500 before:to-violet-500">
           {experienceData.map((job, index) => (
             <motion.div
               key={index}
-              initial="hidden"
-              whileInView="visible"
-              variants={{
-                visible: {
-                  y: 0,
-                  opacity: 1,
-                  transition: { type: "spring", delay: index * 0.2 },
-                },
-                hidden: { opacity: 0, y: 50 },
-              }}
-              className={`relative pl-8 pb-8 ${
-                index !== experienceData.length - 1 ? "border-l-2 border-blue-500" : ""
-              }`}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="relative"
             >
-              <div className="absolute -left-3 top-0 w-6 h-6 bg-blue-500 rounded-full"></div>
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow-lg">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+              {/* Pulsing Timeline Node */}
+              <div className="absolute -left-[30px] sm:-left-[46px] top-6 w-5 h-5 rounded-full bg-white dark:bg-slate-900 border-4 border-indigo-500 shadow-md flex items-center justify-center">
+                <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+              </div>
+
+              {/* Experience Card */}
+              <div
+                className={`rounded-2xl p-6 sm:p-8 border transition-all duration-300 hover:shadow-2xl ${
+                  darkMode
+                    ? "bg-white border-slate-200/90 shadow-lg hover:border-indigo-400/50"
+                    : "bg-slate-900/70 border-slate-800 shadow-xl hover:border-indigo-500/40 backdrop-blur-sm"
+                }`}
+              >
+                {/* Header Row */}
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-slate-800">
                   <div>
-                    <h3 className="text-2xl font-bold text-blue-600 mb-2">{job.title}</h3>
-                    <h4 className="text-xl font-semibold mb-1">{job.company}</h4>
-                    <p className="text-gray-600 dark:text-gray-400 mb-3">
-                      {job.duration} • {job.location}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        {job.title}
+                      </h3>
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        {job.status}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+                      <span>{job.company}</span>
+                      <span>•</span>
+                      <span className="text-slate-500 dark:text-slate-400 font-normal">{job.location}</span>
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/80 w-fit">
+                    <svg className="w-3.5 h-3.5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>{job.duration}</span>
                   </div>
                 </div>
-                {job.description && (
-                  <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                    {job.description}
-                  </p>
-                )}
-                <ul className="space-y-3">
+
+                {/* Subtitle / Tagline */}
+                <p className={`text-sm leading-relaxed mb-5 font-medium ${darkMode ? "text-slate-700" : "text-slate-300"}`}>
+                  {job.tagline}
+                </p>
+
+                {/* Responsibilities list */}
+                <ul className="space-y-3 mb-6">
                   {job.responsibilities.map((r, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="text-blue-500 mr-3 mt-1 text-lg">•</span>
-                      <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{r}</span>
+                    <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm">
+                      <span className="flex-shrink-0 w-4 h-4 rounded-full bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-[10px] mt-0.5 font-bold">
+                        ✓
+                      </span>
+                      <span className={darkMode ? "text-slate-600" : "text-slate-300"}>{r}</span>
                     </li>
                   ))}
                 </ul>
+
+                {/* Skills tags */}
+                <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-100 dark:border-slate-800/60">
+                  <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mr-1">
+                    Key Areas:
+                  </span>
+                  {job.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/60"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}

@@ -20,17 +20,17 @@ const BackToTop = () => {
       aria-label="Back to top"
       title="Back to top"
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 rounded-full p-3 bg-blue-600 text-white shadow-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 transition transform ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3 pointer-events-none"
+      className={`fixed bottom-24 right-6 z-40 rounded-full p-3 bg-slate-900/90 hover:bg-slate-800 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-white border border-slate-700/80 dark:border-slate-600/80 shadow-xl backdrop-blur-md transition-all duration-300 transform active:scale-95 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        className="h-5 w-5"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        strokeWidth={2}
+        strokeWidth={2.5}
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
       </svg>
