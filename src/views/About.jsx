@@ -125,11 +125,11 @@ const About = () => {
             </h3>
 
             <p className={`text-base leading-relaxed mb-6 ${darkMode ? "text-gray-600" : "text-gray-300"}`}>
-              I am a <strong>Computer Science &amp; Engineering graduate specializing in Artificial Intelligence &amp; Machine Learning</strong> at TKR College of Engineering and Technology. I have hands-on experience designing end-to-end Generative AI applications, low-latency LLM microservices, and backend APIs.
+              I am a <strong>Computer Science &amp; Engineering graduate (July 2026) specializing in Artificial Intelligence &amp; Machine Learning</strong> at TKR College of Engineering and Technology. I have hands-on experience designing end-to-end Generative AI applications, low-latency LLM microservices, and backend APIs.
             </p>
 
             <p className={`text-base leading-relaxed mb-8 ${darkMode ? "text-gray-600" : "text-gray-300"}`}>
-              During my tenure as <strong>AIML Team Lead Intern at UpToSkills</strong> (completed July 13, 2026), I guided intern squads, coordinated project sprints, and architected <strong>SkillNova</strong> — a real-time conversational AI support system utilizing FastAPI, PostgreSQL, and Groq LLM pipelines.
+              During my tenure at UpToSkills as <strong>AIML Team Lead Intern</strong> (June 2026, Completed) and <strong>AIML Intern</strong> (February 2026 – April 2026, Completed), I led AI/ML intern teams, coordinated workflows, and built <strong>SkillNova</strong> — an AI-powered support chatbot using LLMs, LangChain, Groq API, FastAPI, and PostgreSQL.
             </p>
 
             {/* Feature Highlights Grid */}

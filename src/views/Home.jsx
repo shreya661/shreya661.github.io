@@ -41,7 +41,7 @@ const Home = () => {
               }}
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Available for AI/ML Roles &amp; Internships</span>
+              <span>Graduated July 2026 • Available for AI/ML Roles</span>
             </motion.div>
 
             {/* Main Heading */}
@@ -269,7 +269,7 @@ const Home = () => {
                   <div className={`text-xs font-semibold mt-0.5 ${darkMode ? "text-gray-700" : "text-gray-300"}`}>
                     UpToSkills
                   </div>
-                  <div className="text-[11px] text-gray-400">Jul 13, 2026 Completed</div>
+                  <div className="text-[11px] text-gray-400">June 2026 Completed</div>
                 </div>
               </div>
 

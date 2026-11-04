@@ -10,10 +10,10 @@ const Experience = () => {
     {
       company: "UpToSkills",
       title: "AIML Team Lead Intern",
-      duration: "May 2026 – July 13, 2026",
+      duration: "June 2026",
       status: "Completed",
       location: "Remote",
-      tagline: "Led cross-functional AI/ML and analytics intern teams with structured delivery oversight.",
+      tagline: "Leading AI/ML intern teams, coordinating workflows, and guiding Generative AI technical delivery.",
       description:
         "Served as Team Lead coordinating distributed teams across generative AI and data analytics projects. Responsible for end-to-end task delegation, workflow orchestration, attendance verification, code review reviews, and performance coaching.",
       responsibilities: [
@@ -27,10 +27,10 @@ const Experience = () => {
     {
       company: "UpToSkills",
       title: "AIML Intern",
-      duration: "March 2026 – April 2026",
+      duration: "February 2026 – April 2026",
       status: "Completed",
       location: "Remote",
-      tagline: "Architected SkillNova — an AI-powered conversational support platform for intern query resolution.",
+      tagline: "Built SkillNova, an AI-powered support chatbot using LLMs, LangChain, Groq API, FastAPI, and PostgreSQL.",
       description:
         "Engineered SkillNova, an intelligent conversational agent designed to provide real-time technical answers, onboarding guides, and workflow resolution to hundreds of concurrent interns using LLMs and FastAPI.",
       responsibilities: [

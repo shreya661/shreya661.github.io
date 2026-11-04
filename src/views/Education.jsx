@@ -10,7 +10,7 @@ const Education = () => {
     {
       degree: "B.Tech in Computer Science & Engineering (AI & ML)",
       institution: "TKR College of Engineering and Technology",
-      year: "Nov 2022 – Nov 2026",
+      year: "Nov 2022 – July 2026",
       location: "Hyderabad, Telangana",
       type: "Undergraduate Degree",
       highlights: [
@@ -19,7 +19,7 @@ const Education = () => {
         "Developed end-to-end full-stack applications: AI Interviewers, Conversational Support Agents, and Vector Search systems",
         "Active contributor to departmental technical seminars and AI coding workshops"
       ],
-      badge: "In Progress (Senior Year)"
+      badge: "Graduated (July 2026)"
     },
     {
       degree: "Intermediate — MPC (Mathematics, Physics, Chemistry)",
