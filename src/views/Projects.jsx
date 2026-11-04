@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useEffect, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import React, { useContext, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ThemeContext } from "../themeProvider";
 
 import intervioImg from "../assets/projects/intervio.jpg";
@@ -19,12 +19,19 @@ const projectData = [
     image: intervioImg,
     description:
       "Automated real-time voice and video interview platform powered by LLMs that conducts dynamic technical assessments and generates structured candidate scoring rubrics.",
+    categories: ["genai", "fastapi"],
     tech: ["Python", "FastAPI", "PostgreSQL", "GenAI", "LLMs"],
     github: "https://github.com/shreya661/IntervIO",
     accent: "from-blue-600 to-indigo-700",
     tag: "AI Interview",
-    tagBg: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    tagBg: "bg-blue-500/10 text-blue-600 border-blue-500/20",
     metric: "Real-time evaluation & feedback",
+    problemSolved:
+      "Traditional technical and behavioral mock interviews are expensive, hard to schedule, and subjective. IntervIO automates dynamic technical assessments, adapts questions in real-time based on candidate responses, and generates structured scoring rubrics.",
+    architecture:
+      "FastAPI Async Engine ➔ LLM Prompt Orchestration ➔ Audio/Video Evaluation Module ➔ PostgreSQL Candidate Rubrics",
+    keyImpact:
+      "Reduced interview evaluation turnaround to seconds with structured grading matrices across communication and technical correctness.",
   },
   {
     id: 2,
@@ -34,12 +41,19 @@ const projectData = [
     image: edubridgeImg,
     description:
       "Conversational AI tutoring platform designed to make 24/7 academic support natural, empathetic, and instantly accessible using state-of-the-art LLMs.",
+    categories: ["genai", "fastapi"],
     tech: ["Python", "FastAPI", "LLMs", "GenAI", "NLP"],
     github: "https://github.com/shreya661/EduBridge-AI-Human-Like-School-Assistant",
     accent: "from-violet-600 to-purple-700",
     tag: "EdTech AI",
-    tagBg: "bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/20",
+    tagBg: "bg-violet-500/10 text-violet-600 border-violet-500/20",
     metric: "Contextual Q&A & tutoring",
+    problemSolved:
+      "Students often get stuck on academic homework outside classroom hours without patient, step-by-step pedagogical help. EduBridge AI offers 24/7 conversational tutoring that breaks down complex syllabus questions into easily understood explanations.",
+    architecture:
+      "FastAPI REST Endpoints ➔ LangChain Conversational Memory ➔ Groq Llama-3 Inference ➔ Socratic Prompt Strategy",
+    keyImpact:
+      "Delivered natural, empathetic multi-turn academic dialogues with low-latency response times for high concurrent user sessions.",
   },
   {
     id: 3,
@@ -49,12 +63,19 @@ const projectData = [
     image: navi360Img,
     description:
       "Comprehensive career guidance system for students featuring interactive skill roadmaps, AI resume parsing, and personalized career pathways.",
+    categories: ["fastapi", "fullstack"],
     tech: ["React", "JavaScript", "FastAPI", "GenAI", "CSS3"],
     github: "https://github.com/shreya661/navi-360",
     accent: "from-emerald-500 to-teal-700",
     tag: "Career Tech",
-    tagBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    tagBg: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
     metric: "Dynamic career trajectory maps",
+    problemSolved:
+      "Graduating engineers struggle to identify market skill gaps and relevant roadmaps. NAVI 360 provides AI resume parsing, automated skill-gap analysis, and interactive milestone roadmaps.",
+    architecture:
+      "React Responsive Frontend ➔ FastAPI Backend Services ➔ Document Resume Parser ➔ Skill Taxonomy Matcher",
+    keyImpact:
+      "Created structured milestone roadmaps for tech roles, enabling students to track learning velocity and resume readiness.",
   },
   {
     id: 4,
@@ -64,12 +85,19 @@ const projectData = [
     image: journalaiImg,
     description:
       "Mental wellbeing journaling application with emotion detection, sentiment analytics, and tailored mindful reflection recommendations.",
+    categories: ["nlp", "fastapi"],
     tech: ["Python", "FastAPI", "React", "PostgreSQL", "NLP"],
     github: "https://github.com/shreya661/Journal_AI",
     accent: "from-rose-500 to-pink-700",
     tag: "Wellness AI",
-    tagBg: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+    tagBg: "bg-rose-500/10 text-rose-600 border-rose-500/20",
     metric: "Sentiment analysis & daily insights",
+    problemSolved:
+      "Traditional journaling lacks actionable emotional insights, making it difficult for users to recognize chronic stress or wellbeing trends over time. Journal AI analyzes daily entries and offers empathetic mindful prompts.",
+    architecture:
+      "React Client ➔ FastAPI Microservice ➔ Emotion Classification Pipeline ➔ PostgreSQL Time-Series History",
+    keyImpact:
+      "Provided real-time sentiment polarity categorization and longitudinal emotional tracking with privacy-first encryption.",
   },
   {
     id: 5,
@@ -79,12 +107,19 @@ const projectData = [
     image: launchpadImg,
     description:
       "Developer productivity environment providing AI-assisted task decomposition, sprint milestone tracking, and workflow automation.",
+    categories: ["fastapi", "genai"],
     tech: ["Python", "FastAPI", "GenAI", "PostgreSQL"],
     github: "https://github.com/shreya661/launchpad",
     accent: "from-orange-500 to-amber-600",
     tag: "DevOps AI",
-    tagBg: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20",
+    tagBg: "bg-orange-500/10 text-orange-600 border-orange-500/20",
     metric: "Automated sprint decomposition",
+    problemSolved:
+      "Breaking complex software epics into manageable sub-tasks and estimating velocity requires heavy manual effort. LaunchPad uses generative AI to decompose project requirements into actionable sprint tickets.",
+    architecture:
+      "FastAPI Asynchronous API ➔ LLM Sprint Task Generator ➔ Milestone Velocity Tracker ➔ PostgreSQL Database",
+    keyImpact:
+      "Accelerated sprint milestone planning by 40% with automated dependency mapping and sub-task estimation.",
   },
   {
     id: 6,
@@ -94,12 +129,19 @@ const projectData = [
     image: researchaiImg,
     description:
       "Autonomous research synthesizer that digests dense scientific literature, performs vector retrieval with FAISS, and outputs structured takeaways.",
+    categories: ["genai", "nlp"],
     tech: ["Python", "LangChain", "LLMs", "FAISS", "Embeddings"],
     github: "https://github.com/shreya661/researchai",
     accent: "from-sky-500 to-cyan-700",
     tag: "Research AI",
-    tagBg: "bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20",
+    tagBg: "bg-sky-500/10 text-sky-600 border-sky-500/20",
     metric: "FAISS vector retrieval & synthesis",
+    problemSolved:
+      "Synthesizing hundreds of pages of academic literature to extract methodology, key contributions, and citations is highly time-consuming. Research AI indexes papers semantically and answers contextual research queries.",
+    architecture:
+      "PDF Ingestion & Chunking ➔ HuggingFace Embedding Pipeline ➔ FAISS Vector Database ➔ LangChain RAG & LLM Synthesis",
+    keyImpact:
+      "Sub-second vector retrieval over dense scientific papers with accurate source citation and zero hallucinated references.",
   },
   {
     id: 7,
@@ -109,13 +151,27 @@ const projectData = [
     image: sentimentImg,
     description:
       "High-throughput NLP pipeline that analyzes social media streams, classifies polarity and sentiment distributions, and renders visual analytics.",
+    categories: ["nlp"],
     tech: ["Python", "Scikit-Learn", "Pandas", "NLP", "Matplotlib"],
     github: "https://github.com/shreya661/social_media_sentiment_analysis-",
     accent: "from-fuchsia-500 to-purple-600",
     tag: "NLP Analytics",
-    tagBg: "bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400 border-fuchsia-500/20",
+    tagBg: "bg-fuchsia-500/10 text-fuchsia-600 border-fuchsia-500/20",
     metric: "Real-time polarity classification",
+    problemSolved:
+      "Unstructured social media feedback contains vital customer sentiment signals that cannot be parsed manually at scale. This pipeline classifies tweets and posts into positive, negative, and neutral distributions.",
+    architecture:
+      "Text Cleaning & Lemmatization ➔ TF-IDF Vectorization ➔ Scikit-Learn Multiclass Classifier ➔ Distribution Dashboard",
+    keyImpact:
+      "High-accuracy classification across noisy, slang-heavy user feedback with real-time sentiment distribution charting.",
   },
+];
+
+const categories = [
+  { id: "all", label: "All Projects (7)", count: 7 },
+  { id: "genai", label: "Generative AI & LLMs", count: 4 },
+  { id: "fastapi", label: "FastAPI & Backends", count: 5 },
+  { id: "nlp", label: "NLP & Analytics", count: 3 },
 ];
 
 const GitHubIcon = () => (
@@ -124,299 +180,321 @@ const GitHubIcon = () => (
   </svg>
 );
 
-const ProjectCard = ({ project, darkMode, isGrid, onLinkClick }) => (
-  <div
-    className={`group ${
-      isGrid ? "w-full" : "flex-shrink-0 w-80 sm:w-88"
-    } select-none rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl flex flex-col justify-between ${
-      darkMode
-        ? "bg-white border-slate-200/90 hover:border-indigo-400 shadow-md"
-        : "bg-slate-900/80 border-slate-800 hover:border-indigo-500/50 shadow-xl backdrop-blur-sm"
-    }`}
-  >
-    <div>
-      {/* 16:9 Mockup Image Container */}
-      <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-950">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
-        
-        {/* Floating Category Tag */}
-        <div className="absolute top-3 left-3">
-          <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md border ${project.tagBg}`}>
-            {project.tag}
-          </span>
-        </div>
+// Spotlight Interactive Card Component
+const SpotlightCard = ({ project, darkMode, onOpenCaseStudy }) => {
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
 
-        {/* Live Metric / Capability pill */}
-        <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
-          <span className="text-[11px] font-medium text-slate-200 backdrop-blur-md bg-black/60 px-2.5 py-1 rounded-md border border-white/10 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            {project.metric}
-          </span>
-        </div>
-      </div>
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
 
-      {/* Card Content Body */}
-      <div className="p-5 sm:p-6">
-        <div className="flex items-center gap-2 mb-1.5">
-          <span className="text-xl">{project.emoji}</span>
-          <h3 className={`text-lg sm:text-xl font-bold tracking-tight ${darkMode ? "text-slate-900" : "text-white"}`}>
-            {project.title}
-          </h3>
-        </div>
-        <p className={`text-xs font-semibold uppercase tracking-wider mb-3 bg-gradient-to-r ${project.accent} bg-clip-text text-transparent`}>
-          {project.subtitle}
-        </p>
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.3 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        setMousePos({ x: -1000, y: -1000 });
+      }}
+      className={`group relative rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl hover:-translate-y-1 ${
+        darkMode
+          ? "bg-white border-slate-200/90 hover:border-indigo-400"
+          : "bg-slate-900/80 border-slate-800 hover:border-indigo-500/50 backdrop-blur-sm"
+      }`}
+    >
+      {/* Dynamic Cursor Spotlight Border Glow */}
+      <div
+        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+        style={{
+          background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(99, 102, 241, 0.22), transparent 70%)`,
+        }}
+      />
 
-        <p
-          className={`text-xs sm:text-sm leading-relaxed mb-4 ${darkMode ? "text-slate-600" : "text-slate-300"}`}
-          style={{
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
-        >
-          {project.description}
-        </p>
+      <div>
+        {/* 16:9 Thumbnail Header */}
+        <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-950">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
 
-        {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-1.5 mb-2">
-          {project.tech.map((t) => (
+          {/* Floating Category Badge */}
+          <div className="absolute top-3 left-3 z-20">
             <span
-              key={t}
-              className={`text-[11px] px-2.5 py-0.5 rounded-full font-medium ${
-                darkMode
-                  ? "bg-slate-100 text-slate-700 border border-slate-200/80"
-                  : "bg-slate-800 text-slate-300 border border-slate-700/80"
+              className={`text-[10px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md border ${
+                darkMode ? "bg-white/90 text-indigo-700 border-indigo-200" : "bg-black/60 text-indigo-300 border-indigo-500/30"
               }`}
             >
-              {t}
+              {project.tag}
             </span>
-          ))}
+          </div>
+
+          {/* Metric Pill */}
+          <div className="absolute bottom-2.5 left-3 right-3 z-20 flex items-center justify-between">
+            <span className="text-[11px] font-medium text-slate-200 backdrop-blur-md bg-black/70 px-2.5 py-1 rounded-lg border border-white/10 flex items-center gap-1.5 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              {project.metric}
+            </span>
+          </div>
+        </div>
+
+        {/* Card Body */}
+        <div className="p-5 sm:p-6">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-xl">{project.emoji}</span>
+            <h3 className={`text-lg sm:text-xl font-bold tracking-tight ${darkMode ? "text-slate-900" : "text-white"}`}>
+              {project.title}
+            </h3>
+          </div>
+          <p className={`text-xs font-semibold uppercase tracking-wider mb-3 bg-gradient-to-r ${project.accent} bg-clip-text text-transparent`}>
+            {project.subtitle}
+          </p>
+
+          <p
+            className={`text-xs sm:text-sm leading-relaxed mb-4 ${darkMode ? "text-slate-600" : "text-slate-300"}`}
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {project.description}
+          </p>
+
+          {/* Tech Stack Pills */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className={`text-[11px] px-2.5 py-0.5 rounded-full font-medium ${
+                  darkMode
+                    ? "bg-slate-100 text-slate-700 border border-slate-200/80"
+                    : "bg-slate-800 text-slate-300 border border-slate-700/80"
+                }`}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
 
-    {/* Card Bottom CTA Button */}
-    <div className="p-5 sm:p-6 pt-0">
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={(e) => {
-          if (onLinkClick && !onLinkClick()) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
-        }}
-        className="inline-flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-700/80 dark:border-slate-600/80 shadow-md hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+      {/* Action Footer: Quick Case Study + GitHub */}
+      <div className="p-5 sm:p-6 pt-0 space-y-2 z-20">
+        <button
+          onClick={() => onOpenCaseStudy(project)}
+          className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all duration-200 ${
+            darkMode
+              ? "bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200 shadow-sm"
+              : "bg-indigo-600/15 hover:bg-indigo-600/25 text-indigo-300 border-indigo-500/30"
+          }`}
+        >
+          <svg className="w-3.5 h-3.5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Architecture &amp; Deep-Dive</span>
+        </button>
+
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center justify-between w-full px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all duration-200 active:scale-[0.98] ${
+            darkMode
+              ? "bg-slate-900 text-white hover:bg-slate-800 border-slate-900 shadow-md shadow-slate-900/10"
+              : "bg-slate-800 text-slate-200 hover:bg-slate-700 border-slate-700 shadow-md"
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <GitHubIcon />
+            <span>GitHub Repository</span>
+          </div>
+          <svg className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </motion.div>
+  );
+};
+
+// Architecture & Case Study Modal Component
+const CaseStudyModal = ({ project, darkMode, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  if (!project) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="fixed inset-0 bg-black/70 backdrop-blur-md transition-opacity"
+      />
+
+      {/* Modal Dialog Card */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ duration: 0.25 }}
+        className={`relative w-full max-w-2xl rounded-3xl border shadow-2xl overflow-hidden z-10 my-8 ${
+          darkMode ? "bg-white border-slate-200 text-slate-900" : "bg-slate-900 border-slate-800 text-white"
+        }`}
       >
-        <div className="flex items-center gap-2">
-          <GitHubIcon />
-          <span>Explore Repository</span>
+        {/* Modal Header */}
+        <div className={`p-6 border-b flex items-start justify-between gap-4 ${darkMode ? "border-slate-100 bg-slate-50/50" : "border-slate-800/80 bg-slate-950/40"}`}>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl bg-indigo-500/10 border border-indigo-500/20">
+              {project.emoji}
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-xl font-bold tracking-tight">{project.title}</h3>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                  {project.tag}
+                </span>
+              </div>
+              <p className={`text-xs font-semibold uppercase tracking-wider bg-gradient-to-r ${project.accent} bg-clip-text text-transparent`}>
+                {project.subtitle}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={onClose}
+            aria-label="Close Case Study"
+            className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-all ${
+              darkMode ? "bg-white hover:bg-slate-100 border-slate-200 text-slate-600" : "bg-slate-800 hover:bg-slate-700 border-slate-700 text-slate-300"
+            }`}
+          >
+            ✕
+          </button>
         </div>
-        <svg className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
-      </a>
+
+        {/* Modal Body */}
+        <div className="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto">
+          {/* Problem Statement */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2 flex items-center gap-1.5">
+              <span>🎯</span> Problem Statement &amp; Motivation
+            </h4>
+            <p className={`text-sm leading-relaxed ${darkMode ? "text-slate-600" : "text-slate-300"}`}>
+              {project.problemSolved}
+            </p>
+          </div>
+
+          {/* System Architecture */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2 flex items-center gap-1.5">
+              <span>⚙️</span> System Architecture Pipeline
+            </h4>
+            <div className={`p-4 rounded-2xl border font-mono text-xs leading-relaxed ${
+              darkMode ? "bg-slate-50 border-slate-200 text-slate-800" : "bg-slate-950 border-slate-800 text-slate-300"
+            }`}>
+              {project.architecture}
+            </div>
+          </div>
+
+          {/* Key Engineering Impact */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2 flex items-center gap-1.5">
+              <span>📈</span> Engineering Impact &amp; Metrics
+            </h4>
+            <div className={`p-4 rounded-2xl border flex items-start gap-3 ${
+              darkMode ? "bg-emerald-50/60 border-emerald-200/80 text-emerald-900" : "bg-emerald-950/30 border-emerald-800/60 text-emerald-300"
+            }`}>
+              <span className="text-emerald-500 text-lg mt-0.5">✓</span>
+              <p className="text-xs sm:text-sm font-medium leading-relaxed">
+                {project.keyImpact}
+              </p>
+            </div>
+          </div>
+
+          {/* Tech Stack */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
+              Technologies &amp; Libraries Used:
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((t) => (
+                <span
+                  key={t}
+                  className={`text-xs px-3 py-1 rounded-xl font-medium border ${
+                    darkMode ? "bg-slate-100 text-slate-800 border-slate-200" : "bg-slate-800 text-slate-200 border-slate-700"
+                  }`}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Footer CTA */}
+        <div className={`p-6 border-t flex flex-wrap items-center justify-between gap-4 ${
+          darkMode ? "border-slate-100 bg-slate-50/50" : "border-slate-800/80 bg-slate-950/40"
+        }`}>
+          <button
+            onClick={onClose}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold ${
+              darkMode ? "text-slate-600 hover:text-slate-900" : "text-slate-400 hover:text-white"
+            }`}
+          >
+            Close Preview
+          </button>
+
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-md shadow-indigo-500/25 transition-all"
+          >
+            <GitHubIcon />
+            <span>Open Repository on GitHub</span>
+            <svg className="w-3.5 h-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </motion.div>
     </div>
-  </div>
-);
+  );
+};
 
 const Projects = () => {
   const theme = useContext(ThemeContext);
   const darkMode = theme.state.darkMode;
 
-  // View Mode: 'grid' (static, no sliding) or 'slider' (manual navigation)
-  const [viewMode, setViewMode] = useState("grid");
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const containerRef = useRef(null);
-  const trackRef = useRef(null);
-
-  const scrollPosRef = useRef(0);
-  const targetScrollRef = useRef(0);
-  const velocityRef = useRef(0);
-  const isDraggingRef = useRef(false);
-  const startXRef = useRef(0);
-  const dragStartScrollRef = useRef(0);
-  const lastXRef = useRef(0);
-  const lastTimeRef = useRef(0);
-  const hasDraggedRef = useRef(false);
-  const rafRef = useRef(null);
-
-  const [isGrabbing, setIsGrabbing] = useState(false);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const getMaxScroll = useCallback(() => {
-    const track = trackRef.current;
-    const container = containerRef.current;
-    if (!track || !container) return 0;
-    return Math.max(0, track.scrollWidth - container.clientWidth);
-  }, []);
-
-  const animate = useCallback(() => {
-    if (viewMode !== "slider") return;
-    const track = trackRef.current;
-    if (!track) {
-      rafRef.current = requestAnimationFrame(animate);
-      return;
-    }
-
-    const maxScroll = getMaxScroll();
-
-    if (isDraggingRef.current) {
-      scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.45;
-    } else {
-      if (Math.abs(velocityRef.current) > 0.05) {
-        targetScrollRef.current += velocityRef.current;
-        velocityRef.current *= 0.92;
-      } else {
-        velocityRef.current = 0;
-      }
-
-      if (targetScrollRef.current < 0) {
-        targetScrollRef.current = 0;
-        velocityRef.current = 0;
-      } else if (targetScrollRef.current > maxScroll) {
-        targetScrollRef.current = maxScroll;
-        velocityRef.current = 0;
-      }
-
-      scrollPosRef.current += (targetScrollRef.current - scrollPosRef.current) * 0.15;
-    }
-
-    const clampedPos = Math.max(0, Math.min(maxScroll, scrollPosRef.current));
-    scrollPosRef.current = clampedPos;
-
-    track.style.transform = `translate3d(-${clampedPos}px, 0, 0)`;
-
-    setAtStart(clampedPos <= 10);
-    setAtEnd(maxScroll > 0 && clampedPos >= maxScroll - 10);
-
-    if (maxScroll > 0) {
-      const idx = Math.min(
-        projectData.length - 1,
-        Math.max(0, Math.round((clampedPos / maxScroll) * (projectData.length - 1)))
-      );
-      setActiveIndex(idx);
-    }
-
-    rafRef.current = requestAnimationFrame(animate);
-  }, [getMaxScroll, viewMode]);
-
-  useEffect(() => {
-    if (viewMode === "slider") {
-      rafRef.current = requestAnimationFrame(animate);
-    }
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [animate, viewMode]);
-
-  const handlePointerDown = (e) => {
-    isDraggingRef.current = true;
-    hasDraggedRef.current = false;
-    setIsGrabbing(true);
-    startXRef.current = e.clientX;
-    lastXRef.current = e.clientX;
-    lastTimeRef.current = performance.now();
-    dragStartScrollRef.current = scrollPosRef.current;
-    velocityRef.current = 0;
-
-    if (containerRef.current) {
-      try {
-        containerRef.current.setPointerCapture(e.pointerId);
-      } catch {
-        // Safe fallback
-      }
-    }
-  };
-
-  const handlePointerMove = (e) => {
-    const maxScroll = getMaxScroll();
-    if (maxScroll <= 0 || !isDraggingRef.current) return;
-
-    const currentX = e.clientX;
-    const deltaX = currentX - lastXRef.current;
-    const totalDelta = currentX - startXRef.current;
-    const now = performance.now();
-    const timeDelta = Math.max(now - lastTimeRef.current, 8);
-
-    if (Math.abs(totalDelta) > 6) {
-      hasDraggedRef.current = true;
-    }
-
-    const newTarget = dragStartScrollRef.current - totalDelta;
-    targetScrollRef.current = Math.max(0, Math.min(maxScroll, newTarget));
-    velocityRef.current = -(deltaX / timeDelta) * 16;
-
-    lastXRef.current = currentX;
-    lastTimeRef.current = now;
-  };
-
-  const handlePointerUp = (e) => {
-    if (!isDraggingRef.current) return;
-    isDraggingRef.current = false;
-    setIsGrabbing(false);
-
-    try {
-      if (containerRef.current && containerRef.current.hasPointerCapture(e.pointerId)) {
-        containerRef.current.releasePointerCapture(e.pointerId);
-      }
-    } catch {
-      // Safe fallback
-    }
-
-    if (velocityRef.current > 20) velocityRef.current = 20;
-    if (velocityRef.current < -20) velocityRef.current = -20;
-  };
-
-  const handlePointerLeave = () => {
-    if (isDraggingRef.current) {
-      isDraggingRef.current = false;
-      setIsGrabbing(false);
-    }
-  };
-
-  const handleWheel = (e) => {
-    if (viewMode !== "slider") return;
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) > 1) {
-      const maxScroll = getMaxScroll();
-      targetScrollRef.current = Math.max(0, Math.min(maxScroll, targetScrollRef.current + delta * 0.4));
-    }
-  };
-
-  const stepLeft = () => {
-    const cardStep = 344;
-    targetScrollRef.current = Math.max(0, targetScrollRef.current - cardStep);
-  };
-
-  const stepRight = () => {
-    const maxScroll = getMaxScroll();
-    const cardStep = 344;
-    targetScrollRef.current = Math.min(maxScroll, targetScrollRef.current + cardStep);
-  };
-
-  const jumpToIndex = (index) => {
-    const maxScroll = getMaxScroll();
-    if (maxScroll <= 0) return;
-    const ratio = index / (projectData.length - 1);
-    targetScrollRef.current = ratio * maxScroll;
-  };
-
-  const canClickLink = () => !hasDraggedRef.current;
+  const filteredProjects = projectData.filter((p) => {
+    if (activeCategory === "all") return true;
+    return p.categories.includes(activeCategory);
+  });
 
   return (
     <div
       id="projects"
-      className={`relative py-20 transition-colors duration-300 ${
+      className={`relative py-24 transition-colors duration-300 ${
         darkMode ? "bg-white text-slate-900" : "bg-slate-900/40 text-white"
       }`}
     >
@@ -429,7 +507,9 @@ const Projects = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-3 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-violet-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
+          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-3 border shadow-sm ${
+            darkMode ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-indigo-500/10 text-indigo-400 border-indigo-500/20"
+          }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
             FEATURED BUILDS &amp; REPOSITORIES
           </div>
@@ -440,159 +520,54 @@ const Projects = () => {
             7 full-stack AI applications spanning LLM candidate evaluation, autonomous tutoring, emotion intelligence, and vector synthesis.
           </p>
 
-          {/* View Mode Switcher: Grid (Static) vs Slider */}
-          <div className="inline-flex items-center gap-1.5 mt-8 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
-            <button
-              onClick={() => setViewMode("grid")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
-                viewMode === "grid"
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
-              }`}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z" />
-              </svg>
-              <span>Grid View (All 7 Stationary)</span>
-            </button>
-            <button
-              onClick={() => setViewMode("slider")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
-                viewMode === "slider"
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
-              }`}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M6 19h12v2H6v-2zm-2-4h16v2H4v-2zm2-8h12v2H6V7zm-2-4h16v2H4V3z" />
-              </svg>
-              <span>Carousel View (Manual Controls)</span>
-            </button>
+          {/* Interactive Category Filter Pills */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${
+                    isActive
+                      ? "bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-500/25"
+                      : darkMode
+                      ? "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200/70"
+                      : "bg-slate-800/80 text-slate-300 border-slate-700/80 hover:bg-slate-800 hover:text-white"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
           </div>
         </motion.div>
 
-        {/* MODE 1: STATIC GRID VIEW (Zero sliding, clean responsive layout) */}
-        {viewMode === "grid" && (
-          <div className="mt-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {projectData.map((project) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  darkMode={darkMode}
-                  isGrid={true}
-                  onLinkClick={() => true}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* MODE 2: CAROUSEL VIEW (Manual only - NO auto slide) */}
-        {viewMode === "slider" && (
-          <div className="relative group max-w-full px-2 sm:px-6 mt-6">
-            {/* Navigation Arrow Left */}
-            <button
-              onClick={stepLeft}
-              disabled={atStart}
-              aria-label="Previous Projects"
-              className={`absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
-                atStart
-                  ? "opacity-20 cursor-not-allowed pointer-events-none"
-                  : "opacity-90 hover:opacity-100 hover:scale-105 active:scale-95"
-              } ${
-                darkMode
-                  ? "bg-white/90 border-slate-200 text-slate-800 hover:bg-white"
-                  : "bg-slate-900/90 border-slate-700 text-white hover:bg-slate-800"
-              }`}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            {/* Navigation Arrow Right */}
-            <button
-              onClick={stepRight}
-              disabled={atEnd}
-              aria-label="Next Projects"
-              className={`absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border shadow-xl transition-all duration-300 ${
-                atEnd
-                  ? "opacity-20 cursor-not-allowed pointer-events-none"
-                  : "opacity-90 hover:opacity-100 hover:scale-105 active:scale-95"
-              } ${
-                darkMode
-                  ? "bg-white/90 border-slate-200 text-slate-800 hover:bg-white"
-                  : "bg-slate-900/90 border-slate-700 text-white hover:bg-slate-800"
-              }`}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-
-            {/* Draggable Track (Manual only) */}
-            <div
-              ref={containerRef}
-              onPointerDown={handlePointerDown}
-              onPointerMove={handlePointerMove}
-              onPointerUp={handlePointerUp}
-              onPointerCancel={handlePointerUp}
-              onPointerLeave={handlePointerLeave}
-              onWheel={handleWheel}
-              style={{
-                overflow: "hidden",
-                width: "100%",
-                cursor: isGrabbing ? "grabbing" : "grab",
-                paddingTop: "16px",
-                paddingBottom: "24px",
-                touchAction: "pan-y",
-                maskImage: "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
-              }}
-            >
-              <div
-                ref={trackRef}
-                style={{
-                  display: "flex",
-                  gap: "24px",
-                  width: "max-content",
-                  willChange: "transform",
-                  userSelect: "none",
-                  paddingLeft: "24px",
-                  paddingRight: "24px",
-                }}
-              >
-                {projectData.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    darkMode={darkMode}
-                    isGrid={false}
-                    onLinkClick={canClickLink}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Dots */}
-            <div className="flex items-center justify-center gap-2 mt-4">
-              {projectData.map((project, idx) => (
-                <button
-                  key={project.id}
-                  onClick={() => jumpToIndex(idx)}
-                  title={`${project.title} (${idx + 1}/7)`}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activeIndex === idx
-                      ? "w-8 bg-indigo-600 dark:bg-indigo-500"
-                      : "w-2 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Dynamic Filtered Grid with Framer Motion AnimatePresence */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-10">
+          <AnimatePresence>
+            {filteredProjects.map((project) => (
+              <SpotlightCard
+                key={project.id}
+                project={project}
+                darkMode={darkMode}
+                onOpenCaseStudy={(proj) => setSelectedProject(proj)}
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
+
+      {/* Slide-over Case Study Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <CaseStudyModal
+            project={selectedProject}
+            darkMode={darkMode}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
