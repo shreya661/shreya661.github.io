@@ -28,7 +28,7 @@ const GitStats = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-14"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-3 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-violet-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
+          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-3 border shadow-sm ${darkMode ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-violet-500/10 text-indigo-400 border-indigo-500/20"}`}>
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
             OPEN SOURCE &amp; CODE ACTIVITY
           </div>
@@ -52,16 +52,16 @@ const GitStats = () => {
               : "bg-slate-900/70 border-slate-800 shadow-xl backdrop-blur-sm"
           }`}
         >
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
+          <div className={`flex items-center justify-between mb-4 pb-3 border-b ${darkMode ? "border-slate-200" : "border-slate-800"}`}>
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-rose-500/80" />
               <span className="w-3 h-3 rounded-full bg-amber-500/80" />
               <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
-              <span className="ml-2 text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
+              <span className={`ml-2 text-xs font-mono font-medium ${darkMode ? "text-slate-600" : "text-slate-400"}`}>
                 github.com/shreya661 • contribution-heatmap
               </span>
             </div>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+            <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${darkMode ? "bg-indigo-50 text-indigo-700 border border-indigo-200" : "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"}`}>
               Live Feed
             </span>
           </div>
@@ -90,7 +90,7 @@ const GitStats = () => {
                 : "bg-slate-900/70 border-slate-800 shadow-xl backdrop-blur-sm"
             }`}
           >
-            <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
+            <h4 className={`text-sm font-semibold uppercase tracking-wider mb-4 ${darkMode ? "text-slate-700" : "text-slate-400"}`}>
               Commit Streak &amp; Momentum
             </h4>
             <img
@@ -114,7 +114,7 @@ const GitStats = () => {
                 : "bg-slate-900/70 border-slate-800 shadow-xl backdrop-blur-sm"
             }`}
           >
-            <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
+            <h4 className={`text-sm font-semibold uppercase tracking-wider mb-4 ${darkMode ? "text-slate-700" : "text-slate-400"}`}>
               Repository Statistics
             </h4>
             <img
@@ -143,7 +143,7 @@ const GitStats = () => {
               : "bg-slate-900/70 border-slate-800 shadow-xl backdrop-blur-sm"
           }`}
         >
-          <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
+          <h4 className={`text-sm font-semibold uppercase tracking-wider mb-4 ${darkMode ? "text-slate-700" : "text-slate-400"}`}>
             Most Utilized Languages &amp; Frameworks
           </h4>
           <img
@@ -165,7 +165,11 @@ const GitStats = () => {
             href="https://github.com/shreya661"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 dark:bg-white/10 dark:hover:bg-white/20 border border-slate-700/80 dark:border-white/10 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+            className={`inline-flex items-center gap-3 px-6 py-3.5 rounded-xl text-sm font-semibold border shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all duration-200 ${
+              darkMode
+                ? "bg-slate-900 text-white hover:bg-slate-800 border-slate-900 shadow-slate-900/15"
+                : "bg-white text-slate-900 hover:bg-slate-100 border-white/20 shadow-black/40"
+            }`}
           >
             <GitHubIcon />
             <span>Explore All 7+ Repositories on GitHub</span>

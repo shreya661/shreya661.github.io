@@ -17,6 +17,14 @@ const themeReducer = (state, action) => {
 export function ThemeProvider(props) {
   const [state, dispatch] = useReducer(themeReducer, initialState);
 
+  React.useEffect(() => {
+    if (!state.darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [state.darkMode]);
+
   return (
     <ThemeContext.Provider
       value={{ state, dispatch }}

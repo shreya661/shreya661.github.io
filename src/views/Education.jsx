@@ -97,21 +97,21 @@ const Education = () => {
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-4">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold border ${darkMode ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-indigo-500/10 text-indigo-400 border-indigo-500/20"}`}>
                     {edu.badge}
                   </span>
-                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                  <span className={`text-xs font-medium ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
                     {edu.year}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold tracking-tight mb-1 text-slate-900 dark:text-white">
+                <h3 className={`text-xl font-bold tracking-tight mb-1 ${darkMode ? "text-slate-900" : "text-white"}`}>
                   {edu.degree}
                 </h3>
-                <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 mb-2">
+                <p className={`text-sm font-semibold mb-2 ${darkMode ? "text-indigo-600" : "text-indigo-400"}`}>
                   {edu.institution}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 flex items-center gap-1.5">
+                <p className={`text-xs mb-6 flex items-center gap-1.5 ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -122,7 +122,7 @@ const Education = () => {
                 <ul className="space-y-2.5">
                   {edu.highlights.map((h, idx) => (
                     <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm">
-                      <span className="flex-shrink-0 w-4 h-4 rounded-full bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-[10px] mt-0.5 font-bold">
+                      <span className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[10px] mt-0.5 font-bold ${darkMode ? "bg-indigo-100 text-indigo-700" : "bg-indigo-500/20 text-indigo-300"}`}>
                         ✓
                       </span>
                       <span className={darkMode ? "text-slate-600" : "text-slate-300"}>{h}</span>
@@ -137,7 +137,7 @@ const Education = () => {
         {/* Certifications Sub-Section */}
         <div>
           <div className="flex items-center gap-3 mb-8">
-            <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            <h3 className={`text-2xl font-bold tracking-tight ${darkMode ? "text-slate-900" : "text-white"}`}>
               Industry Certifications &amp; Job Simulations
             </h3>
             <div className="flex-1 h-px bg-slate-200 dark:bg-slate-800" />
@@ -159,18 +159,18 @@ const Education = () => {
               >
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                    <span className={`text-[11px] font-semibold uppercase tracking-wider ${darkMode ? "text-indigo-600" : "text-indigo-400"}`}>
                       {cert.category}
                     </span>
-                    <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+                    <h4 className={`text-base sm:text-lg font-bold mt-0.5 ${darkMode ? "text-slate-900" : "text-white"}`}>
                       {cert.name}
                     </h4>
                   </div>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap ${darkMode ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"}`}>
                     {cert.date}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 font-medium">
+                <p className={`text-xs mb-3 font-medium ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
                   Issuer: {cert.issuer}
                 </p>
                 <p className={`text-xs leading-relaxed ${darkMode ? "text-slate-600" : "text-slate-300"}`}>
